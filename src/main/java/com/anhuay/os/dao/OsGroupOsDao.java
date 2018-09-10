@@ -1,0 +1,36 @@
+package com.anhuay.os.dao;
+
+import com.anhuay.os.domain.OsGroupOsDO;
+
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * 主机组主机
+ * @author Yum
+ * @email wtuada@126.com
+ * @date 2018-07-24 14:45:03
+ */
+@Mapper
+public interface OsGroupOsDao {
+
+	OsGroupOsDO get(Long id);
+	
+	List<OsGroupOsDO> list(Map<String,Object> map);
+	
+	int count(Map<String,Object> map);
+	
+	int save(OsGroupOsDO osGroupOs);
+	
+	int update(OsGroupOsDO osGroupOs);
+	
+	int remove(Long id);
+	
+	int batchRemove(Long[] ids);
+	
+	int updateStatus(Long id);
+	
+	int batchUpdateStatus(Long[] ids);
+}

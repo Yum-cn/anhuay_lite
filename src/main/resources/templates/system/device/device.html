@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<form class="form-horizontal m-t" id="signupForm">
+<input type="hidden" name="dictId" id="dictId" value="" /> <input
+            type="hidden" name="dictName" id="dictName" value="" />
+            </form>
+	<div class="wrapper wrapper-content ">
+		<div class="col-sm-3">
+			<div class="ibox ibox-body">
+				<div class="ibox-title">
+
+					<button type="button" style="margin: auto;"
+						class="btn  btn-primary" onclick="addDict()">
+						<i class="fa fa-plus" aria-hidden="true"></i>添加
+					</button>
+				</div>
+				<div class="ibox-content">
+					<div id="jstree"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-9">
+			<div class="ibox">
+				<div class="ibox-body">
+					<div class="fixed-table-toolbar">
+						<div class="columns pull-left">
+							<button shiro:hasPermission="system:device:add"
+								type="button" class="btn  btn-primary" onclick="add()">
+								<i class="fa fa-plus" aria-hidden="true"></i>添加
+							</button>
+							<button shiro:hasPermission="system:device:batchRemove"
+								type="button" class="btn  btn-danger" onclick="batchRemove()">
+								<i class="fa fa-trash" aria-hidden="true"></i>删除
+							</button>
+						</div>
+						<div class="columns pull-right">
+							<button class="btn btn-success" onclick="reLoad()">查询</button>
+						</div>
+						<div class="columns pull-right col-md-2 nopadding">
+							<input id="searchName" type="text" class="form-control"
+								placeholder="设备名称">
+						</div>
+					</div>
+					<table id="exampleTable" data-mobile-responsive="true">
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
+	<div>
+		<script type="text/javascript">
+			var s_edit_h = 'hidden';
+			var s_remove_h = 'hidden';
+			var s_resetPwd_h = 'hidden';
+		</script>
+	</div>
+	<div shiro:hasPermission="system:device:edit">
+		<script type="text/javascript">
+			s_edit_h = '';
+		</script>
+	</div>
+	<div shiro:hasPermission="system:device:remove">
+		<script type="text/javascript">
+			var s_remove_h = '';
+		</script>
+	</div>
+	<div shiro:hasPermission="system:device:resetPwd">
+		<script type="text/javascript">
+			var s_resetPwd_h = '';
+		</script>
+	</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script type="text/javascript"
+		src="/js/appjs/system/device/device.js"></script>
+</body>
+</html>

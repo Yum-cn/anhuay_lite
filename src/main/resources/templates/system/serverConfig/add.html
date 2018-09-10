@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+
+	<form class="form-horizontal" id="signupForm">
+	<input id="id" name="id" type="hidden" th:value="${serverConfig?.id}">
+		<table data-mobile-responsive="true" id="exampleTable"
+			class="table table-hover table-striped">
+
+			<tbody>
+				<tr data-index="0">
+					<td style="text-align: right;">管理端配置：</td>
+					<td style="border-left-width: 0px;">
+						<div class="ibox-content">
+							<div class="form-group">
+								<label class="col-sm-3 control-label">TOMCAT服务器IP：</label>
+								<div class="col-sm-3">
+									<input id="webServerIp" name="webServerIp" class="form-control"
+										type="text" th:value="${serverConfig?.webServerIp}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">登录超时时间(分钟)：</label>
+								<div class="col-sm-3">
+									<input id="sessionTimeout" name="sessionTimeout"
+										class="form-control" type="text" th:value="${serverConfig?.sessionTimeout}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">审计日志保存周期：</label>
+								<div class="col-sm-3">
+									<select data-placeholder="--不限周期--" name="saveCycle"
+										id="saveCycle" class="form-control chosen-select" tabindex="2"
+										required>
+										<option value="">--不限周期--</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">审计日志将满告警剩余空间设置(M)：</label>
+								<div class="col-sm-3">
+									<input id="spareSpace" name="spareSpace" class="form-control"
+										type="text" th:value="${serverConfig?.spareSpace}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">审计日志存储空间上限(M)：</label>
+								<div class="col-sm-3">
+									<input id="maxStorageSpace" name="maxStorageSpace"
+										class="form-control" type="text" th:value="${serverConfig?.maxStorageSpace}">
+								</div>
+								<font color="red">到达上限后自动覆盖前三个月的日志</font>
+							</div>
+							<div class="form-group" data-index="1">
+								<label class="col-sm-3 control-label">达存储上限时停止上报标识：</label>
+								<div class="switch  col-sm-1">
+									<div class="onoffswitch">
+										<!--  checked="" -->
+										<input id="stopReportTag" name="stopReportTag" type="checkbox"
+											value="1" class="onoffswitch-checkbox"> <label
+											class="onoffswitch-label" for="stopReportTag"> <span
+											class="onoffswitch-inner"></span> <span
+											class="onoffswitch-switch"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">告警方式设置：</label>
+								<div class="col-sm-3">&nbsp;</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">&nbsp;</label>
+								<div class="col-sm-4">
+									一般行为采取： <input class="bs-checkbox" name="alarmModeNormal"
+										type="checkbox" value="1">图标闪烁告警 <input
+										class="bs-checkbox" name="alarmModeNormal" type="checkbox"
+										value="2">声音告警 <input class="bs-checkbox"
+										name="alarmModeNormal" type="checkbox" value="3">邮件告警
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">&nbsp;</label>
+								<div class="col-sm-4">
+									异常行为采取： <input class="bs-checkbox" name="alarmModeException"
+										type="checkbox" value="1">图标闪烁告警 <input
+										class="bs-checkbox" name="alarmModeException" type="checkbox"
+										value="2">声音告警 <input class="bs-checkbox"
+										name="alarmModeException" type="checkbox" value="3">邮件告警
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">&nbsp;</label>
+								<div class="col-sm-4">
+									违规行为采取： <input class="bs-checkbox" name="alarmModeError"
+										type="checkbox" value="1">图标闪烁告警 <input
+										class="bs-checkbox" name="alarmModeError" type="checkbox"
+										value="2">声音告警 <input class="bs-checkbox"
+										name="alarmModeError" type="checkbox" value="3">邮件告警
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">日志及数据备份解压密码：</label>
+								<div class="col-sm-3">
+									<input id="decoPassword" name="decoPassword"
+										class="form-control" type="text" th:value="${serverConfig?.decoPassword}">
+								</div>
+								<font color="red">保持空白为不设置解压密码</font>
+							</div>
+							<div class="form-group" data-index="1">
+								<label class="col-sm-3 control-label">与时钟服务器时间同步标识：</label>
+								<div class="switch  col-sm-1">
+									<div class="onoffswitch">
+										<!--  checked="" -->
+										<input id="serverClockSyncTag" name="serverClockSyncTag"
+											type="checkbox" value="1" class="onoffswitch-checkbox">
+										<label class="onoffswitch-label" for="serverClockSyncTag">
+											<span class="onoffswitch-inner"></span> <span
+											class="onoffswitch-switch"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">时钟服务器地址：</label>
+								<div class="col-sm-3">
+									<input id="clockServerAddress" name="clockServerAddress"
+										class="form-control" type="text" th:value="${serverConfig?.clockServerAddress}">
+								</div>
+								<label class="col-sm-2 control-label">管理端同步频率(分钟)：</label>
+								<div class="col-sm-3">
+									<input id="serverSyncFreq" name="serverSyncFreq"
+										class="form-control" type="text" th:value="${serverConfig?.serverSyncFreq}">
+								</div>
+							</div>
+
+						</div>
+					</td>
+				</tr>
+
+				<tr data-index="1">
+					<td style="text-align: right;">客户端配置：</td>
+					<td style="border-left-width: 0px;">
+						<div class="ibox-content">
+							<div class="form-group" data-index="1">
+								<label class="col-sm-3 control-label">终端气泡信息显示标识<font
+									color="red">(限Windows)</font>：
+								</label>
+								<div class="switch  col-sm-1">
+									<div class="onoffswitch">
+										<!--  checked="" -->
+										<input id="bubbleTag" name="bubbleTag" type="checkbox"
+											value="1" class="onoffswitch-checkbox"> <label
+											class="onoffswitch-label" for="bubbleTag"> <span
+											class="onoffswitch-inner"></span> <span
+											class="onoffswitch-switch"></span>
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">与时钟服务器时间同步标识：</label>
+								<div class="col-sm-3">
+									<input id="clientClockSyncTag" name="clientClockSyncTag"
+										class="form-control" type="text" th:value="${serverConfig?.clientClockSyncTag}">
+								</div>
+								<label class="col-sm-2 control-label">客户端同步频率(分钟)：</label>
+								<div class="col-sm-3">
+									<input id="clientSyncFreq" name="clientSyncFreq"
+										class="form-control" type="text" th:value="${serverConfig?.clientSyncFreq}">
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+
+		<div class="form-group" style="text-align: center;">
+			<button type="submit" class="btn btn-primary">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+		</div>
+	</form>
+
+	<div th:include="include::footer"></div>
+	<script th:inline="javascript" type="text/javascript">
+        // <![CDATA[
+                var bean = [[${serverConfig}]];
+        // ]]>
+    </script>
+	<script type="text/javascript"
+		src="/js/appjs/system/serverConfig/add.js">
+		
+	</script>
+</body>
+</html>

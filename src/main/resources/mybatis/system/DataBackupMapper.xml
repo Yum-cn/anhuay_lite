@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.anhuay.system.dao.DataBackupDao">
+
+	<select id="get" resultType="com.anhuay.system.domain.DataBackupDO">
+		select `id`,`file_name`,`remark`,`status`,`update_time`,`create_time` from ahy_data_backup where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.anhuay.system.domain.DataBackupDO">
+		select `id`,`file_name`,`remark`,`status`,`update_time`,`create_time` from ahy_data_backup
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="fileName != null and fileName != ''"> and file_name = #{fileName} </if>
+		  		  <if test="remark != null and remark != ''"> and remark = #{remark} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  and status = 1
+		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from ahy_data_backup
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="fileName != null and fileName != ''"> and file_name = #{fileName} </if>
+		  		  <if test="remark != null and remark != ''"> and remark = #{remark} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  and status = 1
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.anhuay.system.domain.DataBackupDO">
+		insert into ahy_data_backup
+		(
+			`id`, 
+			`file_name`, 
+			`remark`, 
+			`status`, 
+			`update_time`, 
+			`create_time`
+		)
+		values
+		(
+			#{id}, 
+			#{fileName}, 
+			#{remark}, 
+			#{status}, 
+			#{updateTime}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.anhuay.system.domain.DataBackupDO">
+		update ahy_data_backup 
+		<set>
+			<if test="fileName != null">`file_name` = #{fileName}, </if>
+			<if test="remark != null">`remark` = #{remark}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="updateStatus">
+        update ahy_data_backup set status = 0 where id = #{value}
+    </update>
+
+    <update id="batchUpdateStatus">
+        update ahy_data_backup set status = 0 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+	
+	<delete id="remove">
+		delete from ahy_data_backup where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from ahy_data_backup where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

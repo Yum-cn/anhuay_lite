@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>省市区三级联动</title>
+    <style>
+        select {
+            width: 200px;
+            padding: 5px;
+        }
+        .code-print{
+            box-sizing: border-box;
+            padding:10px;
+            margin-top:20px;
+            width:200px;
+            border:1px solid blue;
+        }
+    </style>
+</head>
+<body ng-app="areaApp">
+<div ng-controller="GetAreaCodeController">
+    <div>
+        <!--ng-options中key作为select的value绑定到ng-model（就是省市区的编号),value为省市区的名字显示在下拉列表中-->
+        <select ng-model="areaObj.addressProvince"
+                ng-change="areaObj.addressCity=undefined;areaObj.addressDistrict=undefined"
+                ng-options="key as value for (key,value) in DISTRICTS['100000']">
+            <option value="">省</option>
+        </select>
+        <select ng-model="areaObj.addressCity"
+                ng-change="areaObj.addressDistrict=undefined;"
+                ng-options="key as value for (key,value) in DISTRICTS[areaObj.addressProvince]">
+            <option value="">市</option>
+        </select>
+        <select class="form-control form-control-new"
+                ng-model="areaObj.addressDistrict"
+                ng-options="key as value for (key,value) in DISTRICTS[areaObj.addressCity]">
+            <option value="">区</option>
+        </select>
+    </div>
+    <div class="code-print">
+        <p>【县级市没有区！】</p>
+        <p>省编号：<span ng-bind="areaObj.addressProvince"></span></p>
+        <p>市编号：<span ng-bind="areaObj.addressCity"></span></p>
+        <p>区编号：<span ng-bind="areaObj.addressDistrict"></span></p>
+        <p>最终编号:<span ng-bind="areaObj.getAreaCode(areaObj.addressProvince, areaObj.addressCity, areaObj.addressDistrict)"></span></p>
+    </div>
+</div>
+<script src="/js/plugins/angular/angular.min.js"></script>
+<script src="/js/areaCodes.js"></script>
+</body>
+</html>

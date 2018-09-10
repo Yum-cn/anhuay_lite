@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.anhuay.system.dao.ServerConfigDao">
+
+	<select id="get" resultType="com.anhuay.system.domain.ServerConfigDO">
+		select `id`,`web_server_ip`,`session_timeout`,`save_cycle`,`spare_space`,`max_storage_space`,`stop_report_tag`,`alarm_mode_normal`,`alarm_mode_exception`,`alarm_mode_error`,`deco_password`,`server_clock_sync_tag`,`clock_server_address`,`server_sync_freq`,`bubble_tag`,`client_clock_sync_tag`,`client_sync_freq`,`status`,`create_time`,`update_time` from ahy_server_config where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.anhuay.system.domain.ServerConfigDO">
+		select `id`,`web_server_ip`,`session_timeout`,`save_cycle`,`spare_space`,`max_storage_space`,`stop_report_tag`,`alarm_mode_normal`,`alarm_mode_exception`,`alarm_mode_error`,`deco_password`,`server_clock_sync_tag`,`clock_server_address`,`server_sync_freq`,`bubble_tag`,`client_clock_sync_tag`,`client_sync_freq`,`status`,`create_time`,`update_time` from ahy_server_config
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="webServerIp != null and webServerIp != ''"> and web_server_ip = #{webServerIp} </if>
+		  		  <if test="sessionTimeout != null and sessionTimeout != ''"> and session_timeout = #{sessionTimeout} </if>
+		  		  <if test="saveCycle != null and saveCycle != ''"> and save_cycle = #{saveCycle} </if>
+		  		  <if test="spareSpace != null and spareSpace != ''"> and spare_space = #{spareSpace} </if>
+		  		  <if test="maxStorageSpace != null and maxStorageSpace != ''"> and max_storage_space = #{maxStorageSpace} </if>
+		  		  <if test="stopReportTag != null and stopReportTag != ''"> and stop_report_tag = #{stopReportTag} </if>
+		  		  <if test="alarmModeNormal != null and alarmModeNormal != ''"> and alarm_mode_normal = #{alarmModeNormal} </if>
+		  		  <if test="alarmModeException != null and alarmModeException != ''"> and alarm_mode_exception = #{alarmModeException} </if>
+		  		  <if test="alarmModeError != null and alarmModeError != ''"> and alarm_mode_error = #{alarmModeError} </if>
+		  		  <if test="decoPassword != null and decoPassword != ''"> and deco_password = #{decoPassword} </if>
+		  		  <if test="serverClockSyncTag != null and serverClockSyncTag != ''"> and server_clock_sync_tag = #{serverClockSyncTag} </if>
+		  		  <if test="clockServerAddress != null and clockServerAddress != ''"> and clock_server_address = #{clockServerAddress} </if>
+		  		  <if test="serverSyncFreq != null and serverSyncFreq != ''"> and server_sync_freq = #{serverSyncFreq} </if>
+		  		  <if test="bubbleTag != null and bubbleTag != ''"> and bubble_tag = #{bubbleTag} </if>
+		  		  <if test="clientClockSyncTag != null and clientClockSyncTag != ''"> and client_clock_sync_tag = #{clientClockSyncTag} </if>
+		  		  <if test="clientSyncFreq != null and clientSyncFreq != ''"> and client_sync_freq = #{clientSyncFreq} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  and status = 1
+		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from ahy_server_config
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="webServerIp != null and webServerIp != ''"> and web_server_ip = #{webServerIp} </if>
+		  		  <if test="sessionTimeout != null and sessionTimeout != ''"> and session_timeout = #{sessionTimeout} </if>
+		  		  <if test="saveCycle != null and saveCycle != ''"> and save_cycle = #{saveCycle} </if>
+		  		  <if test="spareSpace != null and spareSpace != ''"> and spare_space = #{spareSpace} </if>
+		  		  <if test="maxStorageSpace != null and maxStorageSpace != ''"> and max_storage_space = #{maxStorageSpace} </if>
+		  		  <if test="stopReportTag != null and stopReportTag != ''"> and stop_report_tag = #{stopReportTag} </if>
+		  		  <if test="alarmModeNormal != null and alarmModeNormal != ''"> and alarm_mode_normal = #{alarmModeNormal} </if>
+		  		  <if test="alarmModeException != null and alarmModeException != ''"> and alarm_mode_exception = #{alarmModeException} </if>
+		  		  <if test="alarmModeError != null and alarmModeError != ''"> and alarm_mode_error = #{alarmModeError} </if>
+		  		  <if test="decoPassword != null and decoPassword != ''"> and deco_password = #{decoPassword} </if>
+		  		  <if test="serverClockSyncTag != null and serverClockSyncTag != ''"> and server_clock_sync_tag = #{serverClockSyncTag} </if>
+		  		  <if test="clockServerAddress != null and clockServerAddress != ''"> and clock_server_address = #{clockServerAddress} </if>
+		  		  <if test="serverSyncFreq != null and serverSyncFreq != ''"> and server_sync_freq = #{serverSyncFreq} </if>
+		  		  <if test="bubbleTag != null and bubbleTag != ''"> and bubble_tag = #{bubbleTag} </if>
+		  		  <if test="clientClockSyncTag != null and clientClockSyncTag != ''"> and client_clock_sync_tag = #{clientClockSyncTag} </if>
+		  		  <if test="clientSyncFreq != null and clientSyncFreq != ''"> and client_sync_freq = #{clientSyncFreq} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  and status = 1
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.anhuay.system.domain.ServerConfigDO">
+		insert into ahy_server_config
+		(
+			`id`, 
+			`web_server_ip`, 
+			`session_timeout`, 
+			`save_cycle`, 
+			`spare_space`, 
+			`max_storage_space`, 
+			`stop_report_tag`, 
+			`alarm_mode_normal`, 
+			`alarm_mode_exception`, 
+			`alarm_mode_error`, 
+			`deco_password`, 
+			`server_clock_sync_tag`, 
+			`clock_server_address`, 
+			`server_sync_freq`, 
+			`bubble_tag`, 
+			`client_clock_sync_tag`, 
+			`client_sync_freq`, 
+			`status`, 
+			`create_time`, 
+			`update_time`
+		)
+		values
+		(
+			#{id}, 
+			#{webServerIp}, 
+			#{sessionTimeout}, 
+			#{saveCycle}, 
+			#{spareSpace}, 
+			#{maxStorageSpace}, 
+			#{stopReportTag}, 
+			#{alarmModeNormal}, 
+			#{alarmModeException}, 
+			#{alarmModeError}, 
+			#{decoPassword}, 
+			#{serverClockSyncTag}, 
+			#{clockServerAddress}, 
+			#{serverSyncFreq}, 
+			#{bubbleTag}, 
+			#{clientClockSyncTag}, 
+			#{clientSyncFreq}, 
+			#{status}, 
+			#{createTime}, 
+			#{updateTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.anhuay.system.domain.ServerConfigDO">
+		update ahy_server_config 
+		<set>
+			<if test="webServerIp != null">`web_server_ip` = #{webServerIp}, </if>
+			<if test="sessionTimeout != null">`session_timeout` = #{sessionTimeout}, </if>
+			<if test="saveCycle != null">`save_cycle` = #{saveCycle}, </if>
+			<if test="spareSpace != null">`spare_space` = #{spareSpace}, </if>
+			<if test="maxStorageSpace != null">`max_storage_space` = #{maxStorageSpace}, </if>
+			<if test="stopReportTag != null">`stop_report_tag` = #{stopReportTag}, </if>
+			<if test="alarmModeNormal != null">`alarm_mode_normal` = #{alarmModeNormal}, </if>
+			<if test="alarmModeException != null">`alarm_mode_exception` = #{alarmModeException}, </if>
+			<if test="alarmModeError != null">`alarm_mode_error` = #{alarmModeError}, </if>
+			<if test="decoPassword != null">`deco_password` = #{decoPassword}, </if>
+			<if test="serverClockSyncTag != null">`server_clock_sync_tag` = #{serverClockSyncTag}, </if>
+			<if test="clockServerAddress != null">`clock_server_address` = #{clockServerAddress}, </if>
+			<if test="serverSyncFreq != null">`server_sync_freq` = #{serverSyncFreq}, </if>
+			<if test="bubbleTag != null">`bubble_tag` = #{bubbleTag}, </if>
+			<if test="clientClockSyncTag != null">`client_clock_sync_tag` = #{clientClockSyncTag}, </if>
+			<if test="clientSyncFreq != null">`client_sync_freq` = #{clientSyncFreq}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="updateStatus">
+        update ahy_server_config set status = 0 where id = #{value}
+    </update>
+
+    <update id="batchUpdateStatus">
+        update ahy_server_config set status = 0 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+	
+	<delete id="remove">
+		delete from ahy_server_config where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from ahy_server_config where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

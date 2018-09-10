@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.anhuay.os.dao.OsGroupOsDao">
+
+	<select id="get" resultType="com.anhuay.os.domain.OsGroupOsDO">
+		select `id`,`os_group_id`,`os_group_name`,`os_id`,`os_name`,`status`,`create_time`,`update_time` from ahy_os_group_os where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.anhuay.os.domain.OsGroupOsDO">
+		select `id`,`os_group_id`,`os_group_name`,`os_id`,`os_name`,`status`,`create_time`,`update_time` from ahy_os_group_os
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="osGroupId != null and osGroupId != ''"> and os_group_id = #{osGroupId} </if>
+		  		  <if test="osGroupName != null and osGroupName != ''"> and os_group_name = #{osGroupName} </if>
+		  		  <if test="osId != null and osId != ''"> and os_id = #{osId} </if>
+		  		  <if test="osName != null and osName != ''"> and os_name = #{osName} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  and status = 1
+		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from ahy_os_group_os
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="osGroupId != null and osGroupId != ''"> and os_group_id = #{osGroupId} </if>
+		  		  <if test="osGroupName != null and osGroupName != ''"> and os_group_name = #{osGroupName} </if>
+		  		  <if test="osId != null and osId != ''"> and os_id = #{osId} </if>
+		  		  <if test="osName != null and osName != ''"> and os_name = #{osName} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  and status = 1
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.anhuay.os.domain.OsGroupOsDO">
+		insert into ahy_os_group_os
+		(
+			`id`, 
+			`os_group_id`, 
+			`os_group_name`, 
+			`os_id`, 
+			`os_name`, 
+			`status`, 
+			`create_time`, 
+			`update_time`
+		)
+		values
+		(
+			#{id}, 
+			#{osGroupId}, 
+			#{osGroupName}, 
+			#{osId}, 
+			#{osName}, 
+			#{status}, 
+			#{createTime}, 
+			#{updateTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.anhuay.os.domain.OsGroupOsDO">
+		update ahy_os_group_os 
+		<set>
+			<if test="osGroupId != null">`os_group_id` = #{osGroupId}, </if>
+			<if test="osGroupName != null">`os_group_name` = #{osGroupName}, </if>
+			<if test="osId != null">`os_id` = #{osId}, </if>
+			<if test="osName != null">`os_name` = #{osName}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="updateStatus">
+        update ahy_os_group_os set status = 0 where id = #{value}
+    </update>
+
+    <update id="batchUpdateStatus">
+        update ahy_os_group_os set status = 0 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+	
+	<delete id="remove">
+		delete from ahy_os_group_os where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from ahy_os_group_os where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

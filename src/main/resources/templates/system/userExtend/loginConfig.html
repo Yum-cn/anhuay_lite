@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="col-sm-12">
+		<div class="bootstrap-table">
+			<div class="fixed-table-container" style="padding-bottom: 0px;">
+				<div class="fixed-table-body">
+					<table data-mobile-responsive="true" id="exampleTable"
+						class="table table-hover table-striped">
+
+						<tbody>
+							<tr data-index="0">
+								<td style="border-left-width: 0px;">
+									<div class="ibox-content">
+										<form class="form-horizontal m-t" id="signupForm">
+										<input type="hidden" id="id" name="id" value=""/>
+										
+											<div class="form-group" data-index="1">
+												<label class="col-sm-3 control-label">启用管理端访问IP白名单：</label>
+												<div class="switch  col-sm-1">
+													<div class="onoffswitch">
+														<!--  checked="" -->
+														<input id="white_status" name="white_status"
+															type="checkbox" value="1" class="onoffswitch-checkbox">
+														<label class="onoffswitch-label" for="white_status">
+															<span class="onoffswitch-inner"></span> <span
+															class="onoffswitch-switch"></span>
+														</label>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="form-group">
+												<label class="col-sm-3 control-label">IP地址：</label>
+												<div class="col-sm-3">
+													<input class="form-control" id="device_id_input"
+														name="device_id_input" type="text" >
+												</div>
+
+												<button class="btn btn-success waves-effect waves-light"
+													onclick="addDeviceId()" type="button">添加</button>
+												<div class="">&nbsp;</div>
+
+												<label class="col-sm-3 control-label"></label>
+												<div class="col-sm-8">
+
+													<select name="device_white_show" size="10"
+														multiple="multiple" id="device_white_show"
+														class="form-control">
+													</select> <input type="hidden" id="device_white_values"
+														name="device_white_values" value="">
+
+												</div>
+												<span><button
+														class="btn btn-success waves-effect waves-light"
+														id="removeDeviceId" type="button">移除</button></span>
+											</div>
+
+
+
+											<div class="form-group" data-index="1">
+												<label class="col-sm-3 control-label">启用管理端登录时段：</label>
+												<div class="switch  col-sm-1">
+													<div class="onoffswitch">
+														<!--  checked="" -->
+														<input id="login_time_status" name="login_time_status"
+															type="checkbox" value="1" class="onoffswitch-checkbox">
+														<label class="onoffswitch-label" for="login_time_status">
+															<span class="onoffswitch-inner"></span> <span
+															class="onoffswitch-switch"></span>
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">登录日：</label>
+												<div class="col-sm-8">
+														工作日： <input name="login_day" type="checkbox" value="Monday">星期一
+														<input class="bs-checkbox" name="login_day" type="checkbox"
+															value="Tuesday">星期二 <input class="bs-checkbox"
+															name="login_day" type="checkbox" value="Wednesday">星期三
+														<input class="bs-checkbox" name="login_day" type="checkbox"
+															value="Thursday">星期四 <input class="bs-checkbox"
+															name="login_day" type="checkbox" value="Friday">星期五
+														<input class="bs-checkbox" name="login_day" type="checkbox"
+															value="Saturday">星期六 <input class="bs-checkbox"
+															name="login_day" type="checkbox" value="Sunday">星期日
+														<br>
+														<div>&nbsp;</div>
+														<div>
+															开始时间：<input class="Wdate" type="text"
+																name="login_start_time"
+																onClick="WdatePicker({ dateFmt: 'HH:mm'});"
+																placeholder="开始时间" id="login_start_time" /> - <input
+																class="Wdate" type="text" name="login_end_time"
+																onClick="WdatePicker({ dateFmt: 'HH:mm'});"
+																placeholder="结束时间" id="login_end_time" />
+														</div>
+
+												</div>
+											</div>
+
+											<div class="form-group">
+											<label class="col-sm-3 control-label"></label>
+												<div class="col-sm-8 col-sm-offset-3">
+													<button type="submit" class="btn btn-primary">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script th:inline="javascript" type="text/javascript">
+        // <![CDATA[
+                var bean = [[${userExtend}]];
+        // ]]>
+    </script>
+	<script type="text/javascript"
+		src="/js/appjs/system/userExtend/loginConfig.js">
+		
+	</script>
+</body>
+</html>

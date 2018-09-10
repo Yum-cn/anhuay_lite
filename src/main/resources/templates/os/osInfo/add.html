@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+					<div class="ibox-content"><form class="form-horizontal m-t" id="signupForm">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">主机IP：</label>
+                                <div class="col-sm-4">
+                                    <input id="osIp" name="osIp" class="form-control" type="text" th:value="${osInfo?.osIp}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">主机名：</label>
+                                <div class="col-sm-4">
+                                    <input id="osName" name="osName" class="form-control"
+                                        type="text" th:value="${osInfo?.osName}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">安装码：</label>
+                                <div class="col-sm-4">
+                                    <input id="installCode" name="installCode" class="form-control"
+                                        type="text" th:value="${osInfo?.installCode}" readOnly>
+                                </div>
+                                <span><button
+                                        class="btn btn-success waves-effect waves-light"
+                                        onclick="geneInstallCode()" type="button">生成</button></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">终端标识：</label>
+                                <div class="col-sm-4">
+                                    <input id="terminalTag" name="terminalTag" class="form-control"
+                                        type="text" th:value="${osInfo?.terminalTag}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">责任人名称：</label>
+                                <div class="col-sm-4">
+
+                                    <input class="form-control" id="templetIdSelect"
+                                        name="templetIdSelect" onclick="selectTemplet()"
+                                        placeholder="选择责任人" readonly="readonly" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="col-sm-3 control-label"></label>
+                                <div class="col-sm-4">
+
+                                    <select name="templet_name_show" size="5" multiple="multiple"
+                                        id="templet_name_show" class="form-control">
+                                    </select> <input type="hidden" id="personLiableId" name="personLiableId"
+                                        th:value="${osInfo?.personLiableId}"> <input
+                                        type="hidden" id="personLiableName" name="personLiableName"
+                                        th:value="${osInfo?.personLiableName}">
+
+                                </div>
+                                <span><button
+                                        class="btn btn-success waves-effect waves-light"
+                                        onclick="removeTemplet()" type="button">移除</button></span> <input
+                                    id="id" name="id" th:value="${osInfo?.id}" type="hidden">
+                            </div>
+
+                            <div class="form-group">
+
+                                <label class="col-sm-3 control-label"></label>
+                                <div class="col-sm-4">
+
+                                    <!-- <select name="dept_name_show" size="5" multiple="multiple"
+                                        id="dept_name_show" class="form-control">
+                                    </select> --> 
+                                    <input type="hidden" id="deptId" name="deptId"
+                                        th:value="${osInfo?.deptId}">
+                                    
+                                     <input
+                                        type="hidden" id="deptName" name="deptName"
+                                        th:value="${osInfo?.deptName}">
+
+                                </div>
+                                <span><button
+                                        class="btn btn-success waves-effect waves-light"
+                                        onclick="removeDept()" type="button">移除</button></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <input id="process_alarm_level_selected" value="" type="hidden">
+                                <label class="col-sm-3 control-label">等级：</label>
+                                <div class="col-sm-4">
+                                    <select data-placeholder="--选择级别--" name="level"
+                                        id="level" class="form-control chosen-select"
+                                        tabindex="2" required>
+                                        <option value="">--选择级别--</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input id="process_alarm_level_selected" value="" type="hidden">
+                                <label class="col-sm-3 control-label">终端类型：</label>
+                                <div class="col-sm-4">
+                                    <select data-placeholder="--选择类别--" name="osType"
+                                        id="osType" class="form-control chosen-select"
+                                        tabindex="2" required>
+                                        <option value="">--选择类别--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input id="process_alarm_level_selected" value="" type="hidden">
+                                <label class="col-sm-3 control-label">安装状态：</label>
+                                <div class="col-sm-4">
+                                    <select data-placeholder="--选择类别--" name="installStatus"
+                                        id="installStatus" class="form-control chosen-select"
+                                        tabindex="2" required>
+                                        <option value="">--选择类别--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input id="process_alarm_level_selected" value="" type="hidden">
+                                <label class="col-sm-3 control-label">在线状态：</label>
+                                <div class="col-sm-4">
+                                    <select data-placeholder="--选择类别--" name="onlineStatus"
+                                        id="onlineStatus" class="form-control chosen-select"
+                                        tabindex="2" required>
+                                        <option value="">--选择类别--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input id="process_alarm_level_selected" value="" type="hidden">
+                                <label class="col-sm-3 control-label">同步状态：</label>
+                                <div class="col-sm-4">
+                                    <select data-placeholder="--选择类别--" name="syncStatus"
+                                        id="syncStatus" class="form-control chosen-select"
+                                        tabindex="2" required>
+                                        <option value="">--选择类别--</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                </div>
+                            </div>
+                        </form>
+					</div>
+	<div th:include="include::footer"></div>
+	<script th:inline="javascript" type="text/javascript">
+        // <![CDATA[
+                var bean = [[${osInfo}]];
+        // ]]>
+        
+    </script>
+	<script type="text/javascript" src="/js/appjs/os/osInfo/add.js">
+		
+	</script>
+</body>
+</html>

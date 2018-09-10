@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+							<div class="form-group">	
+								<label class="col-sm-3 control-label">模板编号：</label>
+								<div class="col-sm-8">
+									<input id="templetId" name="templetId" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">本地文件审计状态：</label>
+								<div class="col-sm-8">
+									<input id="localFileStatus" name="localFileStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">本地文件审计规则：</label>
+								<div class="col-sm-8">
+									<input id="localFileRules" name="localFileRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">光盘文件审计状态：</label>
+								<div class="col-sm-8">
+									<input id="diskFileStatus" name="diskFileStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">光盘文件审计规则：</label>
+								<div class="col-sm-8">
+									<input id="diskFileRules" name="diskFileRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">U盘文件审计状态：</label>
+								<div class="col-sm-8">
+									<input id="udiskFileStatus" name="udiskFileStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">U盘文件审计规则：</label>
+								<div class="col-sm-8">
+									<input id="udiskFileRules" name="udiskFileRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">开机关机审计状态：</label>
+								<div class="col-sm-8">
+									<input id="osOnoffStatus" name="osOnoffStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">开机关机审计规则：</label>
+								<div class="col-sm-8">
+									<input id="osOnoffRules" name="osOnoffRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">进程监控审计状态：</label>
+								<div class="col-sm-8">
+									<input id="processMonitorStatus" name="processMonitorStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">进程监控审计规则：</label>
+								<div class="col-sm-8">
+									<input id="processMonitorRules" name="processMonitorRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">打印监控审计状态：</label>
+								<div class="col-sm-8">
+									<input id="printMonitorStatus" name="printMonitorStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">打印监控审计规则：</label>
+								<div class="col-sm-8">
+									<input id="printMonitorRules" name="printMonitorRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">主机信息审计状态：</label>
+								<div class="col-sm-8">
+									<input id="osInfoStatus" name="osInfoStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">主机信息审计规则：</label>
+								<div class="col-sm-8">
+									<input id="osInfoRules" name="osInfoRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">系统日志审计状态：</label>
+								<div class="col-sm-8">
+									<input id="systemLogStatus" name="systemLogStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">系统日志审计规则：</label>
+								<div class="col-sm-8">
+									<input id="systemLogRules" name="systemLogRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">账户监控审计状态：</label>
+								<div class="col-sm-8">
+									<input id="accountMonitorStatus" name="accountMonitorStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">账户监控审计规则：</label>
+								<div class="col-sm-8">
+									<input id="accountMonitorRules" name="accountMonitorRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">共享监控审计状态：</label>
+								<div class="col-sm-8">
+									<input id="shareMonitorStatus" name="shareMonitorStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">共享监控审计规则：</label>
+								<div class="col-sm-8">
+									<input id="shareMonitorRules" name="shareMonitorRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">异常监控审计状态：</label>
+								<div class="col-sm-8">
+									<input id="exceptionMonitorStatus" name="exceptionMonitorStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">异常监控审计规则：</label>
+								<div class="col-sm-8">
+									<input id="exceptionMonitorRules" name="exceptionMonitorRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">主机配置审计状态：</label>
+								<div class="col-sm-8">
+									<input id="osConfigStatus" name="osConfigStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">主机配置审计规则：</label>
+								<div class="col-sm-8">
+									<input id="osConfigRules" name="osConfigRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">移动介质审计状态：</label>
+								<div class="col-sm-8">
+									<input id="moveMediaStatus" name="moveMediaStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">移动介质审计规则：</label>
+								<div class="col-sm-8">
+									<input id="moveMediaRules" name="moveMediaRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">端口监控审计状态：</label>
+								<div class="col-sm-8">
+									<input id="portMonitorStatus" name="portMonitorStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">端口监控审计规则：</label>
+								<div class="col-sm-8">
+									<input id="portMonitorRules" name="portMonitorRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">服务监控审计状态：</label>
+								<div class="col-sm-8">
+									<input id="serverMonitorStatus" name="serverMonitorStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">服务监控审计规则：</label>
+								<div class="col-sm-8">
+									<input id="serverMonitorRules" name="serverMonitorRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">连接监控审计状态：</label>
+								<div class="col-sm-8">
+									<input id="connectionMonitorStatus" name="connectionMonitorStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">连接监控审计规则：</label>
+								<div class="col-sm-8">
+									<input id="connectionMonitorRules" name="connectionMonitorRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">网络流量审计状态：</label>
+								<div class="col-sm-8">
+									<input id="networkFlowStatus" name="networkFlowStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">网络流量审计规则：</label>
+								<div class="col-sm-8">
+									<input id="networkFlowRules" name="networkFlowRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">磁盘空间审计状态：</label>
+								<div class="col-sm-8">
+									<input id="diskSpaceStatus" name="diskSpaceStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">磁盘空间审计规则：</label>
+								<div class="col-sm-8">
+									<input id="diskSpaceRules" name="diskSpaceRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">文件控制审计状态：</label>
+								<div class="col-sm-8">
+									<input id="fileControlStatus" name="fileControlStatus" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">文件控制审计规则：</label>
+								<div class="col-sm-8">
+									<input id="fileControlRules" name="fileControlRules" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">状态：</label>
+								<div class="col-sm-8">
+									<input id="status" name="status" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">创建时间：</label>
+								<div class="col-sm-8">
+									<input id="createTime" name="createTime" class="form-control" type="text">
+								</div>
+							</div>
+														<div class="form-group">	
+								<label class="col-sm-3 control-label">修改时间：</label>
+								<div class="col-sm-8">
+									<input id="updateTime" name="updateTime" class="form-control" type="text">
+								</div>
+							</div>
+																					<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+	</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/strategy/osAudit/add.js">
+	</script>
+</body>
+</html>

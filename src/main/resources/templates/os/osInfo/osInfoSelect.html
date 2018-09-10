@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header">
+
+
+<style type="text/css">
+.table-striped {
+	word-wrap: break-word;
+	table-layout: fixed;
+}
+
+.table-striped-hidden {
+	word-wrap: break-word;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+	-moz-text-overflow: ellipsis;
+	-webkit-text-overflow: ellipsis;
+}
+</style>
+</head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+				<div class="ibox">
+					<div class="ibox-body">
+						<div class="fixed-table-toolbar">
+							<div class="columns pull-right">
+								<button class="btn btn-success" onclick="reLoad()">查询</button>
+							</div>
+							<div class="columns pull-right col-md-2 nopadding">
+								<input id="searchName" type="text" class="form-control"
+									placeholder="主机IP">
+							</div>
+						</div>
+						<table id="exampleTable">
+						</table>
+						<div class="">
+                                    <button onclick="selectSubmit()" class="btn btn-primary">提交选择</button>
+                                </div>
+						<br>
+						<style>
+.table-striped{
+  word-wrap:break-word;
+  table-layout:fixed;
+white-space:pre-wrap;
+}
+.fixed-table-container tbody td .th-inner, .fixed-table-container thead th .th-inner {
+    line-height: 20px;
+    vertical-align: top;
+    text-overflow: ellipsis;
+    white-space:pre-wrap;
+    padding: 8px;
+    overflow: hidden;
+    word-wrap:break-word;
+}
+
+</style>
+					</div>
+				</div>
+		</div>
+
+
+	</div>
+	<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
+	<div>
+		<script type="text/javascript">
+			var s_edit_h = 'hidden';
+			var s_remove_h = 'hidden';
+			var s_resetPwd_h = 'hidden';
+		</script>
+	</div>
+	<div shiro:hasPermission="os:osInfo:edit">
+		<script type="text/javascript">
+			s_edit_h = '';
+		</script>
+	</div>
+	<div shiro:hasPermission="os:osInfo:remove">
+		<script type="text/javascript">
+			var s_remove_h = '';
+		</script>
+	</div>
+	<div shiro:hasPermission="os:osInfo:resetPwd">
+		<script type="text/javascript">
+			var s_resetPwd_h = '';
+		</script>
+	</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script type="text/javascript" src="/js/appjs/os/osInfo/osInfoSelect.js"></script>
+</body>
+</html>

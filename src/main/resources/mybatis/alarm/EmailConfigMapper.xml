@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.anhuay.alarm.dao.EmailConfigDao">
+
+	<select id="get" resultType="com.anhuay.alarm.domain.EmailConfigDO">
+		select `id`,`email_server_address`,`crypt`,`sender_address`,`sender_password`,`recipient_address`,`status`,`create_time`,`update_time` from ahy_email_config where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.anhuay.alarm.domain.EmailConfigDO">
+		select `id`,`email_server_address`,`crypt`,`sender_address`,`sender_password`,`recipient_address`,`status`,`create_time`,`update_time` from ahy_email_config
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="emailServerAddress != null and emailServerAddress != ''"> and email_server_address = #{emailServerAddress} </if>
+		  		  <if test="crypt != null and crypt != ''"> and crypt = #{crypt} </if>
+		  		  <if test="senderAddress != null and senderAddress != ''"> and sender_address = #{senderAddress} </if>
+		  		  <if test="senderPassword != null and senderPassword != ''"> and sender_password = #{senderPassword} </if>
+		  		  <if test="recipientAddress != null and recipientAddress != ''"> and recipient_address = #{recipientAddress} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  and status = 1
+		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from ahy_email_config
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="emailServerAddress != null and emailServerAddress != ''"> and email_server_address = #{emailServerAddress} </if>
+		  		  <if test="crypt != null and crypt != ''"> and crypt = #{crypt} </if>
+		  		  <if test="senderAddress != null and senderAddress != ''"> and sender_address = #{senderAddress} </if>
+		  		  <if test="senderPassword != null and senderPassword != ''"> and sender_password = #{senderPassword} </if>
+		  		  <if test="recipientAddress != null and recipientAddress != ''"> and recipient_address = #{recipientAddress} </if>
+		  		  <if test="status != null and status != ''"> and status = #{status} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		  		  and status = 1
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.anhuay.alarm.domain.EmailConfigDO">
+		insert into ahy_email_config
+		(
+			`id`, 
+			`email_server_address`, 
+			`crypt`, 
+			`sender_address`, 
+			`sender_password`, 
+			`recipient_address`, 
+			`status`, 
+			`create_time`, 
+			`update_time`
+		)
+		values
+		(
+			#{id}, 
+			#{emailServerAddress}, 
+			#{crypt}, 
+			#{senderAddress}, 
+			#{senderPassword}, 
+			#{recipientAddress}, 
+			#{status}, 
+			#{createTime}, 
+			#{updateTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.anhuay.alarm.domain.EmailConfigDO">
+		update ahy_email_config 
+		<set>
+			<if test="emailServerAddress != null">`email_server_address` = #{emailServerAddress}, </if>
+			<if test="crypt != null">`crypt` = #{crypt}, </if>
+			<if test="senderAddress != null">`sender_address` = #{senderAddress}, </if>
+			<if test="senderPassword != null">`sender_password` = #{senderPassword}, </if>
+			<if test="recipientAddress != null">`recipient_address` = #{recipientAddress}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="updateStatus">
+        update ahy_email_config set status = 0 where id = #{value}
+    </update>
+
+    <update id="batchUpdateStatus">
+        update ahy_email_config set status = 0 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+	
+	<delete id="remove">
+		delete from ahy_email_config where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from ahy_email_config where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

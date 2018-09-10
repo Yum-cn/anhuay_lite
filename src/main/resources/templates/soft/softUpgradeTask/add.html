@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content ">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">软件分发包：</label>
+                                <div class="col-sm-4">
+
+                                    <input class="form-control" id="templetIdSelect"
+                                        name="templetIdSelect" onclick="selectTemplet()"
+                                        placeholder="软件分发包" readonly="readonly" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="col-sm-3 control-label"></label>
+                                <div class="col-sm-4">
+
+                                    <select name="templet_name_show" size="5" multiple="multiple"
+                                        id="templet_name_show" class="form-control">
+                                    </select> <input type="hidden" id="softFileId" name="softFileId"
+                                        th:value="${upgradeTask?.softFileId}"> 
+                                        <input type="hidden" id="softFileDownloadUrl" name="softFileDownloadUrl"
+                                        th:value="${upgradeTask?.softFileDownloadUrl}">
+                                        <input type="hidden" id="softFileName" name="softFileName"
+                                        th:value="${upgradeTask?.softFileName}">
+
+                                </div>
+                                <span><button
+                                        class="btn btn-success waves-effect waves-light"
+                                        onclick="removeTemplet()" type="button">移除</button></span> <input
+                                    id="id" name="id" th:value="${upgradeTask?.id}" type="hidden">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">升级任务名称：</label>
+                                <div class="col-sm-4">
+                                    <input id="upgradeName" name="upgradeName" class="form-control"
+                                        type="text" th:value="${upgradeTask?.upgradeName}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">升级时间：</label>
+                                <div class="col-sm-4">
+                                    <input class="Wdate" type="text" name="upgradeTime"
+                                        onClick="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss'});"
+                                        placeholder="升级时间" id="upgradeTime"
+                                        th:value="${upgradeTask?.upgradeTime}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">版本号：</label>
+                                <div class="col-sm-4">
+                                    <input id="upgradeVersion" name="upgradeVersion"
+                                        class="form-control" type="text"
+                                        th:value="${upgradeTask?.upgradeVersion}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">升级主机信息：</label>
+                                <div class="col-sm-4">
+
+                                    <input class="form-control" id="osInfoSelect"
+                                        name="osInfoSelect" onclick="selectOsInfo()"
+                                        placeholder="选择升级主机" readonly="readonly" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <label class="col-sm-3 control-label"></label>
+                                <div class="col-sm-4">
+
+                                    <select name="os_info_show" size="5" multiple="multiple"
+                                        id="os_info_show" class="form-control">
+                                    </select> <input type="hidden" id="osIds" name="osIds"
+                                        th:value="${upgradeTask?.osIds}"> <input type="hidden"
+                                        id="osIps" name="osIps" th:value="${upgradeTask?.osIps}">
+
+                                </div>
+                                <span><button
+                                        class="btn btn-success waves-effect waves-light"
+                                        onclick="removeOsInfo()" type="button">移除</button></span>
+                            </div>
+
+
+
+
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-3">
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:include="include::footer"></div>
+    <script th:inline="javascript" type="text/javascript">
+        // <![CDATA[
+                var bean = [[${upgradeTask}]];
+        // ]]>
+        
+    </script>
+    <script type="text/javascript"
+        src="/js/appjs/soft/softUpgradeTask/add.js">
+        
+    </script>
+</body>
+</html>
+

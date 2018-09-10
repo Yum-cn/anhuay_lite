@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>省市区三级联动</title>
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/cascading_menu.js"></script>
+</head>
+<body>
+	<!--     <select id="province" name="province">
+    </select>
+    <select id="city" name="city">
+    </select>
+    <select id="area" name="area">
+    </select>
+    <div>
+        地址是：<span id="pro_city"></span>    <input id="txtProCity" type="text" />
+    </div> -->
+	<span id="job_area"></span>
+	<script type="text/javascript">
+		var dicPath = "";
+		//发布城市
+		$.ajax({
+			type : "GET",
+			url : dicPath + "/common/dict/citys?timeStamp="
+					+ new Date().getTime(),
+			data : null,
+			success : function(data) {
+				console.log(data);
+				//console.log(data.data);
+				//abc(data.data);
+				initSecletDataCombo(JSON.parse(data.data), "job_area",
+						'city_level_3');
+				//initSecletData(data, "work_area", 'level_2');
+			},
+			beforeSend : function() {
+			},
+			error : function(xhr, msg, obj) {
+				console.log("Error" + msg);
+			}
+		});
+
+		function abc(value) {
+
+			console.log(value);
+
+		}
+	</script>
+
+</body>
+</html>
