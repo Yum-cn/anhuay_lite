@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+                        <input id="id" name="id" th:value="${osCmd?.id}"  type="hidden">
+                        <input id="osId" name="osId" th:value="${osId}"  type="hidden">
+                        <input id="osIp" name="osIp" th:value="${osIp}"  type="hidden">
+							<div class="form-group">
+								<input id="process_alarm_level_selected" value="" type="hidden">
+								<label class="col-sm-3 control-label">远程执行的命令：</label>
+								<div class="col-sm-3">
+									<select data-placeholder="--选择执行命令--" name="cmdType"
+										id="cmdType" class="form-control chosen-select"
+										tabindex="2" required>
+										<option value="">--选择执行命令--</option>
+									</select>
+								</div>
+                                    <button type="submit" class="btn btn-primary" >执行</button>
+                                
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 control-label">远程命令执行结果：</label>
+								<div class="col-sm-8">
+									<textarea id="result" name="result" style="height: 100px;"
+										class="form-control" th:text="${osCmd?.cmdResult}" ></textarea>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script type="text/javascript" src="/js/appjs/os/osManager/remote.js">
+		
+	</script>
+</body>
+</html>

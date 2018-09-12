@@ -10,6 +10,8 @@ public class BootdoConfig {
 	private String uploadPath;
 	//下载Url
 	private String downloadUrl;
+	//系统名称
+	private String systemName;
 	
 
 	public String getUploadPath() {
@@ -27,5 +29,14 @@ public class BootdoConfig {
 	public void setDownloadUrl(String downloadUrl) {
 		this.downloadUrl = downloadUrl;
 	}
+
+	public String getSystemName() {
+		return systemName;
+	}
+
+	public void setSystemName(String systemName) {
+		this.systemName = systemName;
+	}
+	
 	
 }

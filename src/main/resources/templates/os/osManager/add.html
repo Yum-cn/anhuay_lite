@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<div class="ibox-content">
+						<form class="form-horizontal m-t" id="signupForm">
+
+
+							<table data-mobile-responsive="true" id="exampleTable"
+								class="table table-hover ">
+
+								<tbody>
+									<tr data-index="0"
+										style="border: 1px solid #e7eaec; border-bottom: 1px solid #e7eaec;">
+										<td
+											style="text-align: right; border-bottom: 1px solid #e7eaec; border-right: 1px solid #e7eaec;">主机信息：</td>
+										<td style="border-left-width: 0px; border-top: none;">
+											
+												<div class="form-group">
+													<label class="col-sm-2 control-label"></label>
+													<div class="col-sm-8">
+
+														<input class="form-control" id="osInfoSelect"
+															name="osInfoSelect" onclick="selectOsInfo()"
+															placeholder="选择主机" readonly="readonly" type="text">
+													</div>
+												</div>
+												<div class="form-group">
+
+													<label class="col-sm-2 control-label"></label>
+													<div class="col-sm-8">
+
+														<select name="os_info_show" size="5" multiple="multiple"
+															id="os_info_show" class="form-control">
+														</select> <input type="hidden" id="osIds" name="osIds"
+															th:value="${osStrategy?.osIds}"> <input
+															type="hidden" id="osNames" name="osNames"
+															th:value="${osStrategy?.osNames}">
+
+													</div>
+													<span><button
+															class="btn btn-success waves-effect waves-light"
+															onclick="removeOsInfo()" type="button">移除</button></span>
+												</div>
+										</td>
+									</tr>
+									<tr
+										style="border: 1px solid #e7eaec; border-bottom: 1px solid #e7eaec;">
+										<td
+											style="text-align: right; border-right: 1px solid #e7eaec;">应用加固策略：</td>
+										<td style="border-left-width: 0px;">
+
+												<div class="form-group">
+                                                    <label class="col-sm-2 control-label">应用安全状态：</label>
+                                                    <div class="switch  col-sm-1">
+                                                        <div class="onoffswitch">
+                                                            <input id="processMonitorStatus"
+                                                                name="processMonitorStatus" type="checkbox" value="1"
+                                                                class="onoffswitch-checkbox"> <label
+                                                                class="onoffswitch-label" for="processMonitorStatus">
+                                                                <span class="onoffswitch-inner"></span> <span
+                                                                class="onoffswitch-switch"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+												<div class="form-group">
+													<label class="col-sm-2 control-label">进程黑名单(禁止运行的进程)：</label>
+													<div class="switch  col-sm-1">
+														<div class="onoffswitch">
+															<input id="processBlackStatus"
+																name="processBlackStatus" type="checkbox" value="1"
+																class="onoffswitch-checkbox"> <label
+																class="onoffswitch-label" for="processBlackStatus">
+																<span class="onoffswitch-inner"></span> <span
+																class="onoffswitch-switch"></span>
+															</label>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label">进程黑名单配置：</label>
+													<div class="col-sm-8">
+														<textarea id="processBlackRules"
+															name="processBlackRules" class="form-control"></textarea>
+														(不要将系统关键进程加入黑名单;黑名单中进程可能因为保护无法停止;输入内容为进程名,它们之间用<font
+															color="red">半角分号</font>分隔,如vi;gedit)
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label class="col-sm-2 control-label">进程白名单：</label>
+													<div class="switch  col-sm-1">
+														<div class="onoffswitch">
+															<input id="processWhiteStatus"
+																name="processWhiteStatus" type="checkbox" value="1"
+																class="onoffswitch-checkbox"> <label
+																class="onoffswitch-label" for="processWhiteStatus">
+																<span class="onoffswitch-inner"></span> <span
+																class="onoffswitch-switch"></span>
+															</label>
+														</div>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label">进程白名单配置：</label>
+													<div class="col-sm-8">
+														<textarea id="processWhiteRules"
+															name="processWhiteRules" class="form-control"></textarea>
+														(输入内容为进程名,它们之间用<font color="red">半角分号</font>分隔,如vi;gedit)
+													</div>
+												</div>
+										</td>
+									</tr>
+
+									<tr
+										style="border: 1px solid #e7eaec; border-bottom: 1px solid #e7eaec;">
+										<td
+											style="text-align: right; border-right: 1px solid #e7eaec;">桌面安全加固策略：</td>
+										<td style="border-left-width: 0px;">
+											
+												<div class="form-group">
+                                                    <label class="col-sm-2 control-label">账户安全状态：</label>
+                                                    <div class="switch  col-sm-1">
+                                                        <div class="onoffswitch">
+                                                            <input id="accountMonitorStatus"
+                                                                name="accountMonitorStatus" type="checkbox" value="1"
+                                                                class="onoffswitch-checkbox"> <label
+                                                                class="onoffswitch-label" for="accountMonitorStatus">
+                                                                <span class="onoffswitch-inner"></span> <span
+                                                                class="onoffswitch-switch"></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+												<div class="form-group">
+													<input id="process_alarm_level_selected" value=""
+														type="hidden"> <label
+														class="col-sm-2 control-label">密码加固：</label>
+													<div class="col-sm-8">
+														<select data-placeholder="--选择密码规则--"
+															name="passwordRule" id="passwordRule"
+															class="form-control chosen-select" tabindex="2" required>
+															<option value="">--选择密码规则--</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label">杀毒软件检测状态：</label>
+													<div class="switch  col-sm-1">
+														<div class="onoffswitch">
+															<input id="antiVirusSoftwareStatus"
+																name="antiVirusSoftwareStatus" type="checkbox" value="1"
+																class="onoffswitch-checkbox"> <label
+																class="onoffswitch-label" for="antiVirusSoftwareStatus">
+																<span class="onoffswitch-inner"></span> <span
+																class="onoffswitch-switch"></span>
+															</label>
+														</div>
+													</div>
+												</div>
+
+										</td>
+									</tr>
+
+                                    
+								</tbody>
+							</table>
+<div class="form-group" style="text-align: center;">
+            <button type="submit"  class="btn btn-primary">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+        </div>
+
+
+
+
+
+							<!-- <div class="form-group">
+								<label class="col-sm-3 control-label">主机id（每个id最多只能有一条记录）：</label>
+								<div class="col-sm-8">
+									<input id="osId" name="osId" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">主机ip：</label>
+								<div class="col-sm-8">
+									<input id="osIp" name="osIp" class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">应用安全状态：</label>
+								<div class="col-sm-8">
+									<input id="processMonitorStatus" name="processMonitorStatus"
+										class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">应用安全规则：</label>
+								<div class="col-sm-8">
+									<input id="processMonitorRules" name="processMonitorRules"
+										class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">账户安全状态：</label>
+								<div class="col-sm-8">
+									<input id="accountMonitorStatus" name="accountMonitorStatus"
+										class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">账户安全规则：</label>
+								<div class="col-sm-8">
+									<input id="accountMonitorRules" name="accountMonitorRules"
+										class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">杀毒软件检测状态：</label>
+								<div class="col-sm-8">
+									<input id="sdSoftMonitorStatus" name="sdSoftMonitorStatus"
+										class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">杀毒软件检查规则：</label>
+								<div class="col-sm-8">
+									<input id="sdSoftMonitorRules" name="sdSoftMonitorRules"
+										class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">网络连接监控状态：</label>
+								<div class="col-sm-8">
+									<input id="netlinkMonitorStatus" name="netlinkMonitorStatus"
+										class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">网络连接监控规则：</label>
+								<div class="col-sm-8">
+									<input id="netlinkMonitorRules" name="netlinkMonitorRules"
+										class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">关闭是否启用密码：</label>
+								<div class="col-sm-8">
+									<input id="closeStatus" name="closeStatus" class="form-control"
+										type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">关闭密码：</label>
+								<div class="col-sm-8">
+									<input id="closePasswd" name="closePasswd" class="form-control"
+										type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">卸载是否需要密码：</label>
+								<div class="col-sm-8">
+									<input id="uninstallStatus" name="uninstallStatus"
+										class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">卸载密码：</label>
+								<div class="col-sm-8">
+									<input id="uninstallPasswd" name="uninstallPasswd"
+										class="form-control" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">策略下发状态（1-待下发，2-下发中，3-已生效，4-配置失败）：</label>
+								<div class="col-sm-8">
+									<input id="taskStatus" name="taskStatus" class="form-control"
+										type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">创建时间：</label>
+								<div class="col-sm-8">
+									<input id="createTime" name="createTime" class="form-control"
+										type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">修改时间：</label>
+								<div class="col-sm-8">
+									<input id="updateTime" name="updateTime" class="form-control"
+										type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="submit" class="btn btn-primary">提交</button>
+								</div>
+							</div> -->
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:include="include::footer" style="/* background: none repeat scroll 0 0 white; */
+    /* border-top: 1px solid #e7eaec; */
+    overflow: hidden;
+    padding: 10px 20px;
+    margin: 0 -15px;
+    height: 36px;"></div>
+	<script type="text/javascript" src="/js/appjs/os/osManager/add.js">
+		
+	</script>
+</body>
+</html>

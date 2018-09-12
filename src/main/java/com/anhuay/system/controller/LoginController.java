@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.anhuay.common.annotation.Log;
+import com.anhuay.common.config.BootdoConfig;
 import com.anhuay.common.controller.BaseController;
 import com.anhuay.common.domain.FileDO;
 import com.anhuay.common.domain.Tree;
@@ -56,6 +57,8 @@ public class LoginController extends BaseController {
 	FileService fileService;
 	@Autowired
 	private UserExtendService userExtendService;
+	@Autowired
+	private BootdoConfig bootdoConfig;
 
 	@GetMapping({ "/", "" })
 	String welcome(Model model) {
@@ -80,11 +83,14 @@ public class LoginController extends BaseController {
 			model.addAttribute("picUrl", "/img/photo_s.jpg");
 		}
 		model.addAttribute("username", getUser().getUsername());
+		model.addAttribute("systemName", bootdoConfig.getSystemName());
 		return "index_v1";
 	}
 
 	@GetMapping("/login")
-	String login() {
+	String login(Model model) {
+		model.addAttribute("systemName", bootdoConfig.getSystemName());
+		model.addAttribute("welcome", "欢迎登录"+bootdoConfig.getSystemName());
 		return "login";
 	}
 

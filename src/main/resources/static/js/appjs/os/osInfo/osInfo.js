@@ -1,8 +1,6 @@
 var prefix = "/os/osInfo"
 $(function() {
-	var deptId = '';
-	getTreeData();
-	load(deptId);
+	load();
 });
 
 function load(deptId) {
@@ -35,7 +33,6 @@ function load(deptId) {
 								// 说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit : params.limit,
 								offset : params.offset,
-								deptId : deptId,
 								osIp:$('#searchName').val()
 							// name:$('#searchName').val(),
 							// username:$('#searchName').val()
@@ -48,14 +45,14 @@ function load(deptId) {
 						// sortOrder.
 						// 返回false将会终止请求
 						columns : [
-								{
+								/*{
 									checkbox : true
 								},
 								{
 									field : 'id',
 									title : '编号',
 									width:50
-								},
+								},*/
 								{
 									field : 'osIp',
 									title : '主机IP'
@@ -80,17 +77,7 @@ function load(deptId) {
 									field : 'deptName',
 									title : '部门名称'
 								},
-								{
-									field : 'level',
-									title : '等级',
-									formatter : function(value, row, index){
-										if(value==1){
-											return '<span class=" ">公开</span>';
-										}else if(value==2){
-											return '<span class=" ">保密</span>';
-										}
-									}
-								},
+								
 								{
 									field : 'osType',
 									title : '终端类型',
@@ -102,19 +89,7 @@ function load(deptId) {
 										}
 									}
 								},
-								{
-									field : 'installStatus',
-									title : '安装状态',
-									formatter : function(value, row, index){
-										if(value==1){
-											return '<span class=" ">未安装</span>';
-										}else if(value==2){
-											return '<span class=" ">已安装</span>';
-										}else if(value==3){
-											return '<span class=" ">待卸载</span>';
-										}
-									}
-								},
+								
 								{
 									field : 'onlineStatus',
 									title : '在线状态',
@@ -138,17 +113,7 @@ function load(deptId) {
 										}*/
 									}
 								},
-								{
-									field : 'syncStatus',
-									title : '同步状态',
-									formatter : function(value, row, index){
-										if(value==1){
-											return '<span class=" ">未同步</span>';
-										}else if(value==2){
-											return '<span class=" ">已同步</span>';
-										}
-									}
-								},
+								
 								{
 									field : 'lastActiveTime',
 									title : '最后活跃时间',
@@ -156,21 +121,7 @@ function load(deptId) {
 										return formatUnixTime(value);
 									}
 								},
-								{
-									field : 'templetType',
-									title : '当前生效策略',
-									formatter : function(value, row, index){
-										if(value==1){
-											return '<span class=" ">主机策略</span>';
-										}else if(value==2){
-											return '<span class=" ">主机组策略</span>';
-										}else if(value==3){
-											return '<span class=" ">部门策略</span>';
-										}else{
-											return '<span class=" ">默认策略</span>';
-										}
-									}
-								},
+								
 								{
 									field : 'createTime',
 									title : '创建时间',
@@ -186,9 +137,9 @@ function load(deptId) {
 									formatter : function(value, row, index) {
 										var e = '<a class="btn btn-primary btn-sm '
 												+ s_edit_h
-												+ '" href="#" mce_href="#" title="编辑" onclick="edit(\''
-												+ row.id
-												+ '\')"><i class="fa fa-edit"></i></a> ';
+												+ '" href="#" mce_href="#" title="远程协助" onclick="remote(\''
+												+ row.id+ '\',\'' + row.osIp
+												+ '\')"><i class="fa fa-street-view"></i></a> ';
 										var f = '<a class="btn btn-warning btn-sm '
 												+ s_remove_h
 												+ '" href="#" title="删除"  mce_href="#" onclick="remove(\''
@@ -197,7 +148,7 @@ function load(deptId) {
 										var d = '<a class="btn btn-success btn-sm" href="#" title="查看策略"  mce_href="#" onclick="showStrategy(\''
 												+ row.templetName
 												+ '\')"><i class="fa fa-group"></i></a> ';
-										return e + d+f;
+										return e ;
 									}
 								} ]
 					});
@@ -215,20 +166,16 @@ function add() {
 	});
 	layer.full(index);
 }
-function edit(id) {
-	/*
-	 * layer.open({ type : 2, title : '编辑', maxmin : true, shadeClose : false, //
-	 * 点击遮罩关闭层 area : [ '800px', '520px' ], content : prefix + '/edit/' + id //
-	 * iframe的url });
-	 */
-	var index = layer.open({
+
+function remote(id,osIp) {
+	layer.open({
 		type : 2,
-		title : '编辑主机信息',
-		content : prefix + '/edit/' + id,
+		title : '远程协助',
+		maxmin : true,
+		shadeClose : false, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],
-		maxmin : true
+		content : '/os/osManager/remote?id=' + id+'&osIp='+osIp // iframe的url
 	});
-	layer.full(index);
 }
 function remove(id) {
 	layer.confirm('确定要删除选中的记录？', {
@@ -289,40 +236,3 @@ function batchRemove() {
 
 	});
 }
-
-function getTreeData() {
-	$.ajax({
-		type : "GET",
-		url : "/system/sysDept/tree",
-		success : function(tree) {
-			loadTree(tree);
-		}
-	});
-}
-function loadTree(tree) {
-	$('#jstree').jstree({
-		'core' : {
-			'data' : tree
-		},
-		"plugins" : [ "search" ]
-	});
-	$('#jstree').jstree().open_all();
-}
-$('#jstree').on("changed.jstree", function(e, data) {
-	if (data.selected == -1) {
-		var opt = {
-			query : {
-				deptId : '',
-			}
-		}
-		$('#exampleTable').bootstrapTable('refresh', opt);
-	} else {
-		var opt = {
-			query : {
-				deptId : data.selected[0],
-			}
-		}
-		$('#exampleTable').bootstrapTable('refresh',opt);
-	}
-
-});

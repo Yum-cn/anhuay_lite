@@ -4,10 +4,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>安华易终端安全管理系统</title>
-<meta name="keywords" content="安华易终端安全管理系统">
-<meta name="description" content="安华易终端安全管理系统">
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title th:text="${welcome}"></title>
+<meta name="keywords" th:content="${systemName}">
+<meta name="description" th:content="${systemName}">
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 <link href="/css/font-awesome.css?v=4.4.0" rel="stylesheet">
 <link href="/css/animate.css" rel="stylesheet">
@@ -18,7 +18,7 @@
 
 
 <link href="/css/plugins/bootstrap-table/bootstrap-table.min.css"
-	rel="stylesheet" />
+    rel="stylesheet" />
 <link href="/css/plugins/jsTree/style.min.css" rel="stylesheet" />
 <!--summernote css -->
 <link href="/css/animate.css" rel="stylesheet" />
@@ -28,7 +28,7 @@
     <![endif]-->
 <style type="text/css">
 body.signin {
-	color: #8a8c8e;
+    color: #8a8c8e;
 }
 </style>
 <script>
@@ -40,10 +40,10 @@ body.signin {
 </head>
 
 <body class="signin">
-	<div class="signinpanel" style="width: 500px;">
-		<div class="row">
-			<!-- <div class="col-sm-7">
-				<div class="signin-info">
+    <div class="signinpanel" style="width: 500px;">
+        <div class="row">
+            <!-- <div class="col-sm-7">
+                <div class="signin-info">
                 <div class="logopanel m-b">
                     <h1>BootDo</h1>
                 </div>
@@ -65,17 +65,17 @@ body.signin {
                     </li>
                 </ul>
             </div>
-			</div> -->
-			<div style="">
-				<form id="signupForm">
-					<h3 class="text-center">用户登录</h3>
-					<p class="m-t-md text-center">欢迎登录安华易终端安全管理系统</p>
-					<input type="text" name="username" class="form-control uname"
-						value="admin" /> <input type="password" name="password"
-						class="form-control pword m-b" value="111111" /> <a id="login"
-						class="btn btn-login btn-block">登录</a>
-					<!--按钮模块-->
-					<!-- <div class="outside-login">
+            </div> -->
+            <div style="">
+                <form id="signupForm">
+                    <h3 class="text-center">用户登录</h3>
+                    <p class="m-t-md text-center" th:text="${welcome}"></p>
+                    <input type="text" name="username" class="form-control uname"
+                        value="" /> <input type="password" name="password"
+                        class="form-control pword m-b" value="" /> <a id="login"
+                        class="btn btn-login btn-block">登录</a>
+                    <!--按钮模块-->
+                    <!-- <div class="outside-login">
                     <div class="outside-login-tit">
                         <span>代码链接</span>
                     </div>
@@ -97,35 +97,35 @@ body.signin {
                         </a>
                     </div>
                 </div> -->
-				</form>
-			</div>
-		</div>
-		<div class="signup-footer" style="text-align: center;font-weight: 100;">
-			<div>
-				<font style="color: #333;">2018 All Rights
-					Reserved.安全保障价值，科技成就梦想！ </font>
-			</div>
-		</div>
-	</div>
-	<script th:inline="javascript"> var ctx = [[@{/}]] ; </script>
-	<!-- 全局js -->
-	<script src="/js/jquery.min.js?v=2.1.4"
-		th:src="@{/js/jquery.min.js?v=2.1.4}"></script>
-	<script src="/js/bootstrap.min.js?v=3.3.6"
-		th:src="@{/js/bootstrap.min.js?v=3.3.6}"></script>
+                </form>
+            </div>
+        </div>
+        <div class="signup-footer" style="text-align: center;font-weight: 100;">
+            <div>
+                <font style="color: #333;">2018 All Rights
+                    Reserved.安全保障价值，科技成就梦想！ </font>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript"> var ctx = [[@{/}]] ; </script>
+    <!-- 全局js -->
+    <script src="/js/jquery.min.js?v=2.1.4"
+        th:src="@{/js/jquery.min.js?v=2.1.4}"></script>
+    <script src="/js/bootstrap.min.js?v=3.3.6"
+        th:src="@{/js/bootstrap.min.js?v=3.3.6}"></script>
 
-	<!-- 自定义js -->
-	<script src="/js/content.js?v=1.0.0" th:src="@{/js/content.js?v=1.0.0}"></script>
+    <!-- 自定义js -->
+    <script src="/js/content.js?v=1.0.0" th:src="@{/js/content.js?v=1.0.0}"></script>
 
-	<!-- jQuery Validation plugin javascript-->
-	<script src="/js/ajax-util.js"></script>
-	<script src="/js/plugins/validate/jquery.validate.min.js"
-		th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
-	<script src="/js/plugins/validate/messages_zh.min.js"
-		th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
-	<script src="/js/plugins/layer/layer.min.js"
-		th:src="@{/js/plugins/layer/layer.min.js}"></script>
-	<script type="text/javascript">
+    <!-- jQuery Validation plugin javascript-->
+    <script src="/js/ajax-util.js"></script>
+    <script src="/js/plugins/validate/jquery.validate.min.js"
+        th:src="@{/js/plugins/validate/jquery.validate.min.js}"></script>
+    <script src="/js/plugins/validate/messages_zh.min.js"
+        th:src="@{/js/plugins/validate/messages_zh.min.js}"></script>
+    <script src="/js/plugins/layer/layer.min.js"
+        th:src="@{/js/plugins/layer/layer.min.js}"></script>
+    <script type="text/javascript">
     $(document).ready(function () {
         $("#login").on('click',function(){$("#signupForm").submit();});
         validateRule();
@@ -154,16 +154,16 @@ body.signin {
                     //debugger;
                     //layer.msg(r.message);
                     if(r.code==1008 || r.code==1009){
-                    	 //parent.location.href = '/system/userExtend/setPassword';
-                    	 //debugger;
-                    	layer.alert(r.message, function() {
+                         //parent.location.href = '/system/userExtend/setPassword';
+                         //debugger;
+                        layer.alert(r.message, function() {
                             
                             parent.location.href = '/system/userExtend/setPassword';
                         }); 
-                    	
+                        
                        
                     }else{
-                    	layer.msg(r.msg);
+                        layer.msg(r.msg);
                     }
                     
                 }

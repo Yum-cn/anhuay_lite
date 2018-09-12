@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.anhuay.os.dao.OsManagerDao">
+
+	<select id="get" resultType="com.anhuay.os.domain.OsManagerDO">
+		select `id`,`os_id`,`os_ip`,`process_monitor_status`,`process_monitor_rules`,`account_monitor_status`,`account_monitor_rules`,`sd_soft_monitor_status`,`sd_soft_monitor_rules`,`netlink_monitor_status`,`netlink_monitor_rules`,`close_status`,`close_passwd`,`uninstall_status`,`uninstall_passwd`,`task_status`,`create_time`,`update_time` from ahys_os_manager where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.anhuay.os.domain.OsManagerDO">
+		select `id`,`os_id`,`os_ip`,`process_monitor_status`,`process_monitor_rules`,`account_monitor_status`,`account_monitor_rules`,`sd_soft_monitor_status`,`sd_soft_monitor_rules`,`netlink_monitor_status`,`netlink_monitor_rules`,`close_status`,`close_passwd`,`uninstall_status`,`uninstall_passwd`,`task_status`,`create_time`,`update_time` from ahys_os_manager
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="osId != null and osId != ''"> and os_id = #{osId} </if>
+		  		  <if test="osIp != null and osIp != ''"> and os_ip = #{osIp} </if>
+		  		  <if test="processMonitorStatus != null and processMonitorStatus != ''"> and process_monitor_status = #{processMonitorStatus} </if>
+		  		  <if test="processMonitorRules != null and processMonitorRules != ''"> and process_monitor_rules = #{processMonitorRules} </if>
+		  		  <if test="accountMonitorStatus != null and accountMonitorStatus != ''"> and account_monitor_status = #{accountMonitorStatus} </if>
+		  		  <if test="accountMonitorRules != null and accountMonitorRules != ''"> and account_monitor_rules = #{accountMonitorRules} </if>
+		  		  <if test="sdSoftMonitorStatus != null and sdSoftMonitorStatus != ''"> and sd_soft_monitor_status = #{sdSoftMonitorStatus} </if>
+		  		  <if test="sdSoftMonitorRules != null and sdSoftMonitorRules != ''"> and sd_soft_monitor_rules = #{sdSoftMonitorRules} </if>
+		  		  <if test="netlinkMonitorStatus != null and netlinkMonitorStatus != ''"> and netlink_monitor_status = #{netlinkMonitorStatus} </if>
+		  		  <if test="netlinkMonitorRules != null and netlinkMonitorRules != ''"> and netlink_monitor_rules = #{netlinkMonitorRules} </if>
+		  		  <if test="closeStatus != null and closeStatus != ''"> and close_status = #{closeStatus} </if>
+		  		  <if test="closePasswd != null and closePasswd != ''"> and close_passwd = #{closePasswd} </if>
+		  		  <if test="uninstallStatus != null and uninstallStatus != ''"> and uninstall_status = #{uninstallStatus} </if>
+		  		  <if test="uninstallPasswd != null and uninstallPasswd != ''"> and uninstall_passwd = #{uninstallPasswd} </if>
+		  		  <if test="taskStatus != null and taskStatus != ''"> and task_status = #{taskStatus} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from ahys_os_manager
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="osId != null and osId != ''"> and os_id = #{osId} </if>
+		  		  <if test="osIp != null and osIp != ''"> and os_ip = #{osIp} </if>
+		  		  <if test="processMonitorStatus != null and processMonitorStatus != ''"> and process_monitor_status = #{processMonitorStatus} </if>
+		  		  <if test="processMonitorRules != null and processMonitorRules != ''"> and process_monitor_rules = #{processMonitorRules} </if>
+		  		  <if test="accountMonitorStatus != null and accountMonitorStatus != ''"> and account_monitor_status = #{accountMonitorStatus} </if>
+		  		  <if test="accountMonitorRules != null and accountMonitorRules != ''"> and account_monitor_rules = #{accountMonitorRules} </if>
+		  		  <if test="sdSoftMonitorStatus != null and sdSoftMonitorStatus != ''"> and sd_soft_monitor_status = #{sdSoftMonitorStatus} </if>
+		  		  <if test="sdSoftMonitorRules != null and sdSoftMonitorRules != ''"> and sd_soft_monitor_rules = #{sdSoftMonitorRules} </if>
+		  		  <if test="netlinkMonitorStatus != null and netlinkMonitorStatus != ''"> and netlink_monitor_status = #{netlinkMonitorStatus} </if>
+		  		  <if test="netlinkMonitorRules != null and netlinkMonitorRules != ''"> and netlink_monitor_rules = #{netlinkMonitorRules} </if>
+		  		  <if test="closeStatus != null and closeStatus != ''"> and close_status = #{closeStatus} </if>
+		  		  <if test="closePasswd != null and closePasswd != ''"> and close_passwd = #{closePasswd} </if>
+		  		  <if test="uninstallStatus != null and uninstallStatus != ''"> and uninstall_status = #{uninstallStatus} </if>
+		  		  <if test="uninstallPasswd != null and uninstallPasswd != ''"> and uninstall_passwd = #{uninstallPasswd} </if>
+		  		  <if test="taskStatus != null and taskStatus != ''"> and task_status = #{taskStatus} </if>
+		  		  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+		  		  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.anhuay.os.domain.OsManagerDO" useGeneratedKeys="true" keyProperty="id">
+		insert into ahys_os_manager
+		(
+			`os_id`, 
+			`os_ip`, 
+			`process_monitor_status`, 
+			`process_monitor_rules`, 
+			`account_monitor_status`, 
+			`account_monitor_rules`, 
+			`sd_soft_monitor_status`, 
+			`sd_soft_monitor_rules`, 
+			`netlink_monitor_status`, 
+			`netlink_monitor_rules`, 
+			`close_status`, 
+			`close_passwd`, 
+			`uninstall_status`, 
+			`uninstall_passwd`, 
+			`task_status`, 
+			`create_time`, 
+			`update_time`
+		)
+		values
+		(
+			#{osId}, 
+			#{osIp}, 
+			#{processMonitorStatus}, 
+			#{processMonitorRules}, 
+			#{accountMonitorStatus}, 
+			#{accountMonitorRules}, 
+			#{sdSoftMonitorStatus}, 
+			#{sdSoftMonitorRules}, 
+			#{netlinkMonitorStatus}, 
+			#{netlinkMonitorRules}, 
+			#{closeStatus}, 
+			#{closePasswd}, 
+			#{uninstallStatus}, 
+			#{uninstallPasswd}, 
+			#{taskStatus}, 
+			#{createTime}, 
+			#{updateTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.anhuay.os.domain.OsManagerDO">
+		update ahys_os_manager 
+		<set>
+			<if test="osId != null">`os_id` = #{osId}, </if>
+			<if test="osIp != null">`os_ip` = #{osIp}, </if>
+			<if test="processMonitorStatus != null">`process_monitor_status` = #{processMonitorStatus}, </if>
+			<if test="processMonitorRules != null">`process_monitor_rules` = #{processMonitorRules}, </if>
+			<if test="accountMonitorStatus != null">`account_monitor_status` = #{accountMonitorStatus}, </if>
+			<if test="accountMonitorRules != null">`account_monitor_rules` = #{accountMonitorRules}, </if>
+			<if test="sdSoftMonitorStatus != null">`sd_soft_monitor_status` = #{sdSoftMonitorStatus}, </if>
+			<if test="sdSoftMonitorRules != null">`sd_soft_monitor_rules` = #{sdSoftMonitorRules}, </if>
+			<if test="netlinkMonitorStatus != null">`netlink_monitor_status` = #{netlinkMonitorStatus}, </if>
+			<if test="netlinkMonitorRules != null">`netlink_monitor_rules` = #{netlinkMonitorRules}, </if>
+			<if test="closeStatus != null">`close_status` = #{closeStatus}, </if>
+			<if test="closePasswd != null">`close_passwd` = #{closePasswd}, </if>
+			<if test="uninstallStatus != null">`uninstall_status` = #{uninstallStatus}, </if>
+			<if test="uninstallPasswd != null">`uninstall_passwd` = #{uninstallPasswd}, </if>
+			<if test="taskStatus != null">`task_status` = #{taskStatus}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="updateStatus">
+        update ahys_os_manager set status = 0 where id = #{value}
+    </update>
+
+    <update id="batchUpdateStatus">
+        update ahys_os_manager set status = 0 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+	
+	<delete id="remove">
+		delete from ahys_os_manager where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from ahys_os_manager where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

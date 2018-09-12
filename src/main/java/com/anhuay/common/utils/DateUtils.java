@@ -110,6 +110,34 @@ public class DateUtils {
 		}
 
 	}
+	
+	/**
+	 * 转换为yyyy-MM-dd HH:mm:ss格式的时间
+	 * 
+	 * @author Yum
+	 */
+	public static String getTime(long timestamp) {
+
+		try {
+
+			String str = String.valueOf(timestamp);
+			if (str.length() <= 10) {
+				timestamp = timestamp * 1000L;
+			}
+
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeInMillis(timestamp);
+
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+			return sdf.format(cal.getTime());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
 
 	public static void getBetweenDate(String minDate, String maxDate, int field) {
 

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.anhuay.os.dao.OsCmdDao">
+
+	<select id="get" resultType="com.anhuay.os.domain.OsCmdDO">
+		select
+		`id`,`os_id`,`os_ip`,`cmd_status`,`cmd_type`,`cmd_result`,`create_time`,`update_time`
+		from ahys_os_cmd where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.anhuay.os.domain.OsCmdDO">
+		select
+		`id`,`os_id`,`os_ip`,`cmd_status`,`cmd_type`,`cmd_result`,`create_time`,`update_time`
+		from ahys_os_cmd
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="osId != null and osId != ''"> and os_id = #{osId} </if>
+			<if test="osIp != null and osIp != ''"> and os_ip = #{osIp} </if>
+			<if test="cmdStatus != null and cmdStatus != ''"> and cmd_status = #{cmdStatus} </if>
+			<if test="cmdType != null and cmdType != ''"> and cmd_type = #{cmdType} </if>
+			<if test="cmdResult != null and cmdResult != ''"> and cmd_result = #{cmdResult} </if>
+			<if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+			<if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by id desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="count" resultType="int">
+		select count(*) from ahys_os_cmd
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="osId != null and osId != ''"> and os_id = #{osId} </if>
+			<if test="osIp != null and osIp != ''"> and os_ip = #{osIp} </if>
+			<if test="cmdStatus != null and cmdStatus != ''"> and cmd_status = #{cmdStatus} </if>
+			<if test="cmdType != null and cmdType != ''"> and cmd_type = #{cmdType} </if>
+			<if test="cmdResult != null and cmdResult != ''"> and cmd_result = #{cmdResult} </if>
+			<if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+			<if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		</where>
+	</select>
+
+	<insert id="save" parameterType="com.anhuay.os.domain.OsCmdDO"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into ahys_os_cmd
+		(
+		`os_id`,
+		`os_ip`,
+		`cmd_status`,
+		`cmd_type`,
+		`cmd_result`,
+		`create_time`,
+		`update_time`
+		)
+		values
+		(
+		#{osId},
+		#{osIp},
+		#{cmdStatus},
+		#{cmdType},
+		#{cmdResult},
+		#{createTime},
+		#{updateTime}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.anhuay.os.domain.OsCmdDO">
+		update ahys_os_cmd
+		<set>
+			<if test="osId != null">`os_id` = #{osId}, </if>
+			<if test="osIp != null">`os_ip` = #{osIp}, </if>
+			<if test="cmdStatus != null">`cmd_status` = #{cmdStatus}, </if>
+			<if test="cmdType != null">`cmd_type` = #{cmdType}, </if>
+			<if test="cmdResult != null">`cmd_result` = #{cmdResult}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<update id="updateStatus">
+		update ahys_os_cmd set status = 0 where id = #{value}
+	</update>
+
+	<update id="batchUpdateStatus">
+		update ahys_os_cmd set status = 0 where id in
+		<foreach item="id" collection="array" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</update>
+
+	<delete id="remove">
+		delete from ahys_os_cmd where id = #{value}
+	</delete>
+
+	<delete id="batchRemove">
+		delete from ahys_os_cmd where id in
+		<foreach item="id" collection="array" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="getOsCmd" resultType="com.anhuay.os.domain.OsCmdDO">
+		select
+		`id`,`os_id`,`os_ip`,`cmd_status`,`cmd_type`,`cmd_result`,`create_time`,`update_time`
+		from ahys_os_cmd
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="osId != null and osId != ''"> and os_id = #{osId} </if>
+			<if test="osIp != null and osIp != ''"> and os_ip = #{osIp} </if>
+			<if test="cmdStatus != null and cmdStatus != ''"> and cmd_status = #{cmdStatus} </if>
+			<if test="cmdType != null and cmdType != ''"> and cmd_type = #{cmdType} </if>
+			<if test="cmdResult != null and cmdResult != ''"> and cmd_result = #{cmdResult} </if>
+			<if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+			<if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+		</where>
+		limit 1
+	</select>
+
+</mapper>

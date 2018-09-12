@@ -172,7 +172,6 @@ function loadTypeTab(className,type,id,checkedValue){
 		url : '/common/dict/list/'+type,
 		success : function(data) {
 			
-			 debugger;
 			//alert(className+">>>"+type+">>>"+id+">>>"+checkedValue);
 			// 加载数据
 			for (var i = 0; i < data.length; i++) {
