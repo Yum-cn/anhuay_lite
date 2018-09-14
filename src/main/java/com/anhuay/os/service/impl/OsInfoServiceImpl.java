@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.anhuay.os.dao.OsInfoDao;
 import com.anhuay.os.domain.OsInfoDO;
+import com.anhuay.os.domain.OsInfoVO;
 import com.anhuay.os.service.OsInfoService;
 
 
@@ -62,4 +63,14 @@ public class OsInfoServiceImpl implements OsInfoService {
     public int batchUpdateStatus(Long[] ids){
         return osInfoDao.batchUpdateStatus(ids);
     }
+
+	@Override
+	public List<OsInfoVO> listOs(Map<String, Object> map) {
+		return osInfoDao.listOs(map);
+	}
+
+	@Override
+	public int countOs(Map<String, Object> map) {
+		return osInfoDao.countOs(map);
+	}
 }

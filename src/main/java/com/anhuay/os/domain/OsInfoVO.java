@@ -58,6 +58,10 @@ public class OsInfoVO implements Serializable {
 	private Integer templetType;
 	//模板名称
 	private String templetName;
+	//是否需要卸载码
+	private String uninstallStatus;
+	//卸载码
+	private String uninstallPasswd;
 
 	/**
 	 * 设置：主键编号
@@ -293,6 +297,19 @@ public class OsInfoVO implements Serializable {
 	public void setTempletName(String templetName) {
 		this.templetName = templetName;
 	}
+	public String getUninstallStatus() {
+		return uninstallStatus;
+	}
+	public void setUninstallStatus(String uninstallStatus) {
+		this.uninstallStatus = uninstallStatus;
+	}
+	public String getUninstallPasswd() {
+		return uninstallPasswd;
+	}
+	public void setUninstallPasswd(String uninstallPasswd) {
+		this.uninstallPasswd = uninstallPasswd;
+	}
+
 	
 	
 }

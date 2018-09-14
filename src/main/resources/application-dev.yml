@@ -9,7 +9,8 @@ server:
 anhuay:
   uploadPath: D:/var/uploaded_files/
   downloadUrl: http://localhost/terminal/terminalFile/download/
-  systemName: 安华易终端安全管理系统
+  systemName: 面向学习型的开源框架
+  #systemName: 安华易终端安全管理系统
 logging:
   level:
     root: info

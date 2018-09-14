@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,7 @@ import com.anhuay.os.domain.OsManagerVO;
 import com.anhuay.os.manager.OsManagerInterface;
 import com.anhuay.os.service.OsCmdService;
 import com.anhuay.os.service.OsManagerService;
+import com.common.constant.CommonEnum;
 
 /**
  * 
@@ -93,6 +93,65 @@ public class OsManagerController {
 		
 		model.addAttribute("osCmd", osCmd);
 		return "os/osManager/remote";
+	}
+	
+	@GetMapping("/uninstallCode")
+	String uninstallCode(String osIds,String osIps,Model model){
+		
+		model.addAttribute("osIds", osIds);
+		model.addAttribute("osIps", osIps);
+		return "os/osManager/uninstallCode";
+	}
+	
+	
+	/**
+	 * 删除
+	 */
+	@PostMapping( "/setUninstallPassword")
+	@ResponseBody
+	public R remove(String osIds,String osIps,String code){
+		
+		if(StringUtils.isNotBlank(osIds)){
+			
+			String[] idsArray = StringUtils.split(osIds, ",");
+			String[] ipsArray = StringUtils.split(osIps, ",");
+			
+			for (int i = 0; i < idsArray.length; i++) {
+				
+				try {
+					Map<String,Object> map = new HashMap<String,Object>();
+					map.put("osId", idsArray[i]);
+					OsManagerDO osManager = osManagerService.getOsManager(map);
+					
+					if(osManager != null){
+						
+						osManager.setUninstallStatus(StringUtils.isBlank(osManager.getUninstallPasswd())?"0":"1");
+						osManager.setUninstallPasswd(code);
+						osManager.setUpdateTime(System.currentTimeMillis());
+						osManagerService.update(osManager);
+					}else{
+						
+						osManager = new OsManagerDO();
+						osManager.setOsId(String.valueOf(idsArray[i]));
+						osManager.setOsIp(ipsArray[i]);
+						osManager.setUninstallStatus("1");
+						osManager.setUninstallPasswd(code);
+						osManager.setCreateTime(System.currentTimeMillis());
+						osManagerService.save(osManager);
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			}
+		}
+		
+		
+		
+		//osManagerService.batchUpdateStatus(ids);
+		return R.ok();
 	}
 	
 	/**

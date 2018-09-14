@@ -62,4 +62,9 @@ public class OsManagerServiceImpl implements OsManagerService {
     public int batchUpdateStatus(Integer[] ids){
         return osManagerDao.batchUpdateStatus(ids);
     }
+
+	@Override
+	public OsManagerDO getOsManager(Map<String, Object> map) {
+		return  osManagerDao.getOsManager(map);
+	}
 }

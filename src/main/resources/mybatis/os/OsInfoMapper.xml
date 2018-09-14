@@ -67,6 +67,69 @@
 		  		  and status = 1
 		</where>
 	</select>
+	
+	
+	<select id="listOs" resultType="com.anhuay.os.domain.OsInfoVO">
+        select om.uninstall_status,om.uninstall_passwd,t.`id`,t.`os_ip`,`os_name`,`install_code`,`terminal_tag`,`person_liable_id`,`person_liable_name`,`dept_id`,`dept_name`,`level`,`os_type`,`install_status`,`online_status`,`sync_status`,`last_active_time`,`status`,t.`create_time`,t.`update_time` from ahy_os_info t  
+           LEFT JOIN ahys_os_manager om on om.os_id=t.id
+        <where>  
+                  <if test="id != null and id != ''"> and t.id = #{id} </if>
+                  <if test="osIp != null and osIp != ''"> and t.os_ip = #{osIp} </if>
+                  <if test="osName != null and osName != ''"> and os_name = #{osName} </if>
+                  <if test="installCode != null and installCode != ''"> and install_code = #{installCode} </if>
+                  <if test="terminalTag != null and terminalTag != ''"> and terminal_tag = #{terminalTag} </if>
+                  <if test="personLiableId != null and personLiableId != ''"> and person_liable_id = #{personLiableId} </if>
+                  <if test="personLiableName != null and personLiableName != ''"> and person_liable_name = #{personLiableName} </if>
+                  <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
+                  <if test="deptName != null and deptName != ''"> and dept_name = #{deptName} </if>
+                  <if test="level != null and level != ''"> and level = #{level} </if>
+                  <if test="osType != null and osType != ''"> and os_type = #{osType} </if>
+                  <if test="installStatus != null and installStatus != ''"> and install_status = #{installStatus} </if>
+                  <if test="onlineStatus != null and onlineStatus != ''"> and online_status = #{onlineStatus} </if>
+                  <if test="syncStatus != null and syncStatus != ''"> and sync_status = #{syncStatus} </if>
+                  <if test="lastActiveTime != null and lastActiveTime != ''"> and last_active_time = #{lastActiveTime} </if>
+                  <if test="status != null and status != ''"> and status = #{status} </if>
+                  <if test="createTime != null and createTime != ''"> and t.create_time = #{createTime} </if>
+                  <if test="updateTime != null and updateTime != ''"> and t.update_time = #{updateTime} </if>
+                  and status = 1
+        </where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+            <otherwise>
+                order by id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+    
+    <select id="countOs" resultType="int">
+        select count(*) from ahy_os_info
+         <where>  
+                  <if test="id != null and id != ''"> and id = #{id} </if>
+                  <if test="osIp != null and osIp != ''"> and os_ip = #{osIp} </if>
+                  <if test="osName != null and osName != ''"> and os_name = #{osName} </if>
+                  <if test="installCode != null and installCode != ''"> and install_code = #{installCode} </if>
+                  <if test="terminalTag != null and terminalTag != ''"> and terminal_tag = #{terminalTag} </if>
+                  <if test="personLiableId != null and personLiableId != ''"> and person_liable_id = #{personLiableId} </if>
+                  <if test="personLiableName != null and personLiableName != ''"> and person_liable_name = #{personLiableName} </if>
+                  <if test="deptId != null and deptId != ''"> and dept_id = #{deptId} </if>
+                  <if test="deptName != null and deptName != ''"> and dept_name = #{deptName} </if>
+                  <if test="level != null and level != ''"> and level = #{level} </if>
+                  <if test="osType != null and osType != ''"> and os_type = #{osType} </if>
+                  <if test="installStatus != null and installStatus != ''"> and install_status = #{installStatus} </if>
+                  <if test="onlineStatus != null and onlineStatus != ''"> and online_status = #{onlineStatus} </if>
+                  <if test="syncStatus != null and syncStatus != ''"> and sync_status = #{syncStatus} </if>
+                  <if test="lastActiveTime != null and lastActiveTime != ''"> and last_active_time = #{lastActiveTime} </if>
+                  <if test="status != null and status != ''"> and status = #{status} </if>
+                  <if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+                  <if test="updateTime != null and updateTime != ''"> and update_time = #{updateTime} </if>
+                  and status = 1
+        </where>
+    </select>
 	 
 	<insert id="save" parameterType="com.anhuay.os.domain.OsInfoDO">
 		insert into ahy_os_info

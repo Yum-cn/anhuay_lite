@@ -1,5 +1,7 @@
 var prefix = "/os/osInfo"
 $(function() {
+	
+	debugger;
 	load();
 });
 
@@ -8,7 +10,7 @@ function load(deptId) {
 			.bootstrapTable(
 					{
 						method : 'get', // 服务器数据的请求方式 get or post
-						url : prefix + "/list", // 服务器数据的加载地址
+						url : prefix + "/listOs", // 服务器数据的加载地址
 						// showRefresh : true,
 						// showToggle : true,
 						// showColumns : true,
@@ -45,14 +47,14 @@ function load(deptId) {
 						// sortOrder.
 						// 返回false将会终止请求
 						columns : [
-								/*{
+								{
 									checkbox : true
 								},
 								{
 									field : 'id',
 									title : '编号',
 									width:50
-								},*/
+								},
 								{
 									field : 'osIp',
 									title : '主机IP'
@@ -62,8 +64,8 @@ function load(deptId) {
 									title : '主机名'
 								},
 								{
-									field : 'installCode',
-									title : '安装码'
+									field : 'uninstallPasswd',
+									title : '卸载码'
 								},
 								{
 									field : 'terminalTag',
@@ -235,4 +237,31 @@ function batchRemove() {
 	}, function() {
 
 	});
+}
+function setCode() {
+	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
+	if (rows.length == 0) {
+		layer.msg("请选择要设置的数据");
+		return;
+	}
+	
+	var ids = new Array();
+	var ips = new Array();
+	// 遍历所有选择的行数据，取每条数据对应的ID
+	$.each(rows, function(i, row) {
+		ids[i] = row['id'];
+		ips[i] = row['osIp'];
+	});
+	
+	var idsStr = ids.join(",");
+	var ipsStr = ips.join(",");
+	layer.open({
+		type : 2,
+		title : '卸载码',
+		maxmin : true,
+		shadeClose : false, // 点击遮罩关闭层
+		area : [ '800px', '520px' ],
+		content : '/os/osManager/uninstallCode?osIds=' + idsStr+'&osIps='+ipsStr // iframe的url
+	});
+	
 }

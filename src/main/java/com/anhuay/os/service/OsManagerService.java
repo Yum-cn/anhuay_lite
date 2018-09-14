@@ -31,4 +31,6 @@ public interface OsManagerService {
     int updateStatus(Integer id);
     
     int batchUpdateStatus(Integer[] ids);
+    
+    OsManagerDO getOsManager(Map<String, Object> map);
 }

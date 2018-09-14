@@ -91,6 +91,19 @@ public class OsInfoController {
 		PageUtils pageUtils = new PageUtils(osInfoVOList, total);
 		return pageUtils;
 	}
+	
+	@ResponseBody
+	@GetMapping("/listOs")
+	public PageUtils listOs(@RequestParam Map<String, Object> params) {
+		// 查询列表数据
+		Query query = new Query(params);
+		List<OsInfoVO> osInfoList = osInfoService.listOs(query);
+		
+		
+		int total = osInfoService.countOs(query);
+		PageUtils pageUtils = new PageUtils(osInfoList, total);
+		return pageUtils;
+	}
 
 	@GetMapping("/add")
 	@RequiresPermissions("os:osInfo:add")

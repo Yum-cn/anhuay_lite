@@ -1,6 +1,7 @@
 package com.anhuay.os.service;
 
 import com.anhuay.os.domain.OsInfoDO;
+import com.anhuay.os.domain.OsInfoVO;
 
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,10 @@ public interface OsInfoService {
 	List<OsInfoDO> list(Map<String, Object> map);
 	
 	int count(Map<String, Object> map);
+	
+	List<OsInfoVO> listOs(Map<String, Object> map);
+	
+	int countOs(Map<String, Object> map);
 	
 	int save(OsInfoDO osInfo);
 	

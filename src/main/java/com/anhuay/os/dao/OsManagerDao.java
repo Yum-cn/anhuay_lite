@@ -33,4 +33,6 @@ public interface OsManagerDao {
 	int updateStatus(Integer id);
 	
 	int batchUpdateStatus(Integer[] ids);
+
+	OsManagerDO getOsManager(Map<String, Object> map);
 }

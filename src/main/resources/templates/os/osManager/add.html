@@ -20,33 +20,33 @@
 										<td
 											style="text-align: right; border-bottom: 1px solid #e7eaec; border-right: 1px solid #e7eaec;">主机信息：</td>
 										<td style="border-left-width: 0px; border-top: none;">
-											
-												<div class="form-group">
-													<label class="col-sm-2 control-label"></label>
-													<div class="col-sm-8">
 
-														<input class="form-control" id="osInfoSelect"
-															name="osInfoSelect" onclick="selectOsInfo()"
-															placeholder="选择主机" readonly="readonly" type="text">
-													</div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label"></label>
+												<div class="col-sm-8">
+
+													<input class="form-control" id="osInfoSelect"
+														name="osInfoSelect" onclick="selectOsInfo()"
+														placeholder="选择主机" readonly="readonly" type="text">
 												</div>
-												<div class="form-group">
+											</div>
+											<div class="form-group">
 
-													<label class="col-sm-2 control-label"></label>
-													<div class="col-sm-8">
+												<label class="col-sm-2 control-label"></label>
+												<div class="col-sm-8">
 
-														<select name="os_info_show" size="5" multiple="multiple"
-															id="os_info_show" class="form-control">
-														</select> <input type="hidden" id="osIds" name="osIds"
-															th:value="${osStrategy?.osIds}"> <input
-															type="hidden" id="osNames" name="osNames"
-															th:value="${osStrategy?.osNames}">
+													<select name="os_info_show" size="5" multiple="multiple"
+														id="os_info_show" class="form-control">
+													</select> <input type="hidden" id="osIds" name="osIds"
+														th:value="${osStrategy?.osIds}"> <input
+														type="hidden" id="osNames" name="osNames"
+														th:value="${osStrategy?.osNames}">
 
-													</div>
-													<span><button
-															class="btn btn-success waves-effect waves-light"
-															onclick="removeOsInfo()" type="button">移除</button></span>
 												</div>
+												<span><button
+														class="btn btn-success waves-effect waves-light"
+														onclick="removeOsInfo()" type="button">移除</button></span>
+											</div>
 										</td>
 									</tr>
 									<tr
@@ -55,67 +55,65 @@
 											style="text-align: right; border-right: 1px solid #e7eaec;">应用加固策略：</td>
 										<td style="border-left-width: 0px;">
 
-												<div class="form-group">
-                                                    <label class="col-sm-2 control-label">应用安全状态：</label>
-                                                    <div class="switch  col-sm-1">
-                                                        <div class="onoffswitch">
-                                                            <input id="processMonitorStatus"
-                                                                name="processMonitorStatus" type="checkbox" value="1"
-                                                                class="onoffswitch-checkbox"> <label
-                                                                class="onoffswitch-label" for="processMonitorStatus">
-                                                                <span class="onoffswitch-inner"></span> <span
-                                                                class="onoffswitch-switch"></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-												<div class="form-group">
-													<label class="col-sm-2 control-label">进程黑名单(禁止运行的进程)：</label>
-													<div class="switch  col-sm-1">
-														<div class="onoffswitch">
-															<input id="processBlackStatus"
-																name="processBlackStatus" type="checkbox" value="1"
-																class="onoffswitch-checkbox"> <label
-																class="onoffswitch-label" for="processBlackStatus">
-																<span class="onoffswitch-inner"></span> <span
-																class="onoffswitch-switch"></span>
-															</label>
-														</div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label">应用安全状态：</label>
+												<div class="switch  col-sm-1">
+													<div class="onoffswitch">
+														<input id="processMonitorStatus"
+															name="processMonitorStatus" type="checkbox" value="1"
+															class="onoffswitch-checkbox"> <label
+															class="onoffswitch-label" for="processMonitorStatus">
+															<span class="onoffswitch-inner"></span> <span
+															class="onoffswitch-switch"></span>
+														</label>
 													</div>
 												</div>
-												<div class="form-group">
-													<label class="col-sm-2 control-label">进程黑名单配置：</label>
-													<div class="col-sm-8">
-														<textarea id="processBlackRules"
-															name="processBlackRules" class="form-control"></textarea>
-														(不要将系统关键进程加入黑名单;黑名单中进程可能因为保护无法停止;输入内容为进程名,它们之间用<font
-															color="red">半角分号</font>分隔,如vi;gedit)
-													</div>
-												</div>
+											</div>
 
-												<div class="form-group">
-													<label class="col-sm-2 control-label">进程白名单：</label>
-													<div class="switch  col-sm-1">
-														<div class="onoffswitch">
-															<input id="processWhiteStatus"
-																name="processWhiteStatus" type="checkbox" value="1"
-																class="onoffswitch-checkbox"> <label
-																class="onoffswitch-label" for="processWhiteStatus">
-																<span class="onoffswitch-inner"></span> <span
-																class="onoffswitch-switch"></span>
-															</label>
-														</div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label">进程黑名单(禁止运行的进程)：</label>
+												<div class="switch  col-sm-1">
+													<div class="onoffswitch">
+														<input id="processBlackStatus" name="processBlackStatus"
+															type="checkbox" value="1" class="onoffswitch-checkbox">
+														<label class="onoffswitch-label" for="processBlackStatus">
+															<span class="onoffswitch-inner"></span> <span
+															class="onoffswitch-switch"></span>
+														</label>
 													</div>
 												</div>
-												<div class="form-group">
-													<label class="col-sm-2 control-label">进程白名单配置：</label>
-													<div class="col-sm-8">
-														<textarea id="processWhiteRules"
-															name="processWhiteRules" class="form-control"></textarea>
-														(输入内容为进程名,它们之间用<font color="red">半角分号</font>分隔,如vi;gedit)
+											</div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label">进程黑名单配置：</label>
+												<div class="col-sm-8">
+													<textarea id="processBlackRules" name="processBlackRules"
+														class="form-control"></textarea>
+													(不要将系统关键进程加入黑名单;黑名单中进程可能因为保护无法停止;输入内容为进程名,它们之间用<font
+														color="red">半角分号</font>分隔,如vi;gedit)
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label class="col-sm-2 control-label">进程白名单：</label>
+												<div class="switch  col-sm-1">
+													<div class="onoffswitch">
+														<input id="processWhiteStatus" name="processWhiteStatus"
+															type="checkbox" value="1" class="onoffswitch-checkbox">
+														<label class="onoffswitch-label" for="processWhiteStatus">
+															<span class="onoffswitch-inner"></span> <span
+															class="onoffswitch-switch"></span>
+														</label>
 													</div>
 												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label">进程白名单配置：</label>
+												<div class="col-sm-8">
+													<textarea id="processWhiteRules" name="processWhiteRules"
+														class="form-control"></textarea>
+													(输入内容为进程名,它们之间用<font color="red">半角分号</font>分隔,如vi;gedit)
+												</div>
+											</div>
 										</td>
 									</tr>
 
@@ -124,57 +122,56 @@
 										<td
 											style="text-align: right; border-right: 1px solid #e7eaec;">桌面安全加固策略：</td>
 										<td style="border-left-width: 0px;">
-											
-												<div class="form-group">
-                                                    <label class="col-sm-2 control-label">账户安全状态：</label>
-                                                    <div class="switch  col-sm-1">
-                                                        <div class="onoffswitch">
-                                                            <input id="accountMonitorStatus"
-                                                                name="accountMonitorStatus" type="checkbox" value="1"
-                                                                class="onoffswitch-checkbox"> <label
-                                                                class="onoffswitch-label" for="accountMonitorStatus">
-                                                                <span class="onoffswitch-inner"></span> <span
-                                                                class="onoffswitch-switch"></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-												<div class="form-group">
-													<input id="process_alarm_level_selected" value=""
-														type="hidden"> <label
-														class="col-sm-2 control-label">密码加固：</label>
-													<div class="col-sm-8">
-														<select data-placeholder="--选择密码规则--"
-															name="passwordRule" id="passwordRule"
-															class="form-control chosen-select" tabindex="2" required>
-															<option value="">--选择密码规则--</option>
-														</select>
+
+											<div class="form-group">
+												<label class="col-sm-2 control-label">账户安全状态：</label>
+												<div class="switch  col-sm-1">
+													<div class="onoffswitch">
+														<input id="accountMonitorStatus"
+															name="accountMonitorStatus" type="checkbox" value="1"
+															class="onoffswitch-checkbox"> <label
+															class="onoffswitch-label" for="accountMonitorStatus">
+															<span class="onoffswitch-inner"></span> <span
+															class="onoffswitch-switch"></span>
+														</label>
 													</div>
 												</div>
-												<div class="form-group">
-													<label class="col-sm-2 control-label">杀毒软件检测状态：</label>
-													<div class="switch  col-sm-1">
-														<div class="onoffswitch">
-															<input id="antiVirusSoftwareStatus"
-																name="antiVirusSoftwareStatus" type="checkbox" value="1"
-																class="onoffswitch-checkbox"> <label
-																class="onoffswitch-label" for="antiVirusSoftwareStatus">
-																<span class="onoffswitch-inner"></span> <span
-																class="onoffswitch-switch"></span>
-															</label>
-														</div>
+											</div>
+											<div class="form-group">
+												<input id="process_alarm_level_selected" value=""
+													type="hidden"> <label
+													class="col-sm-2 control-label">密码加固：</label>
+												<div class="col-sm-8">
+													<select data-placeholder="--选择密码规则--" name="passwordRule"
+														id="passwordRule" class="form-control chosen-select"
+														tabindex="2" required>
+														<option value="">--选择密码规则--</option>
+													</select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-2 control-label">杀毒软件检测状态：</label>
+												<div class="switch  col-sm-1">
+													<div class="onoffswitch">
+														<input id="antiVirusSoftwareStatus"
+															name="antiVirusSoftwareStatus" type="checkbox" value="1"
+															class="onoffswitch-checkbox"> <label
+															class="onoffswitch-label" for="antiVirusSoftwareStatus">
+															<span class="onoffswitch-inner"></span> <span
+															class="onoffswitch-switch"></span>
+														</label>
 													</div>
 												</div>
+											</div>
 
 										</td>
 									</tr>
 
-                                    
 								</tbody>
 							</table>
-<div class="form-group" style="text-align: center;">
-            <button type="submit"  class="btn btn-primary">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
-        </div>
+							<div class="form-group" style="text-align: center;">
+								<button type="submit" class="btn btn-primary">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+							</div>
 
 
 
@@ -309,12 +306,8 @@
 		</div>
 	</div>
 
-	<div th:include="include::footer" style="/* background: none repeat scroll 0 0 white; */
-    /* border-top: 1px solid #e7eaec; */
-    overflow: hidden;
-    padding: 10px 20px;
-    margin: 0 -15px;
-    height: 36px;"></div>
+	<div th:include="include::footer"
+		style="overflow: hidden; padding: 10px 20px; margin: 0 -15px; height: 36px;"></div>
 	<script type="text/javascript" src="/js/appjs/os/osManager/add.js">
 		
 	</script>
