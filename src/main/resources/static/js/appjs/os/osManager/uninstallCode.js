@@ -38,7 +38,7 @@ function randomWord(randomFlag, min, max) {
 
 function save() {
 	$.ajax({
-		cache : true,
+		cache : false,
 		type : "POST",
 		url : "/os/osManager/setUninstallPassword",
 		data : $('#signupForm').serialize(),// 你的formid
@@ -49,7 +49,7 @@ function save() {
 		success : function(data) {
 			if (data.code == 0) {
 				parent.layer.msg("操作成功");
-				//parent.reLoad();
+				parent.reLoad();
 				var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
 				parent.layer.close(index);
 

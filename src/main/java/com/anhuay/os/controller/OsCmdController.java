@@ -89,11 +89,12 @@ public class OsCmdController {
 			OsCmdDO osCmdDO = osCmdService.get(osCmd.getId());
 			osCmdDO.setUpdateTime(osCmd.getUpdateTime());
 			osCmdDO.setCmdType(osCmd.getCmdType());
+			osCmdDO.setCmdStatus("1");
 
 			if (osCmdService.update(osCmdDO) > 0) {
 
 				if (StringUtils.isNotBlank(osCmdDO.getCmdResult())) {
-					osCmdDO.setCmdResult(DateUtils.getTime(osCmdDO.getUpdateTime()) + " 操作信息：" + osCmdDO.getCmdResult());
+					osCmdDO.setCmdResult(osCmdDO.getUpdateTime()==null?"":DateUtils.getTime(osCmdDO.getUpdateTime()) + " 操作信息：" + osCmdDO.getCmdResult());
 				}
 				return BaseResultHelper.success(osCmdDO);
 			}
@@ -105,8 +106,9 @@ public class OsCmdController {
 			osCmdDO.setCreateTime(System.currentTimeMillis());
 			osCmdDO.setUpdateTime(System.currentTimeMillis());
 			osCmdDO.setCmdType(osCmd.getCmdType());
+			osCmdDO.setCmdStatus("1");
 			if (osCmdService.save(osCmdDO) > 0) {
-				osCmdDO.setCmdResult(DateUtils.getTime(osCmdDO.getUpdateTime()) + " 命令执行中......");
+				//osCmdDO.setCmdResult(DateUtils.getTime(osCmdDO.getUpdateTime()) + " 命令执行中......");
 				return BaseResultHelper.success(osCmdDO);
 			}
 		}
@@ -126,7 +128,7 @@ public class OsCmdController {
 		if (StringUtils.isNotBlank(osCmdDO.getCmdResult())) {
 			osCmdDO.setCmdResult(DateUtils.getTime(osCmdDO.getCreateTime()) + " 操作信息：" + osCmdDO.getCmdResult());
 		}else{
-			osCmdDO.setCmdResult(DateUtils.getTime(osCmdDO.getCreateTime()) + " 命令执行中......");
+			//osCmdDO.setCmdResult(DateUtils.getTime(osCmdDO.getCreateTime()) + " 命令执行中......");
 		}
 		return BaseResultHelper.success(osCmdDO);
 	}

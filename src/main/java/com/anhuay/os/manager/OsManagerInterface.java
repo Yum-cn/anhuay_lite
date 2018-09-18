@@ -15,6 +15,8 @@ public interface OsManagerInterface {
 	 */
 	BaseResult<Object> saveOsManager(OsManagerVO bean);
 
+	BaseResult<Object> offlineExport(Object object);
+
 	
 
 }

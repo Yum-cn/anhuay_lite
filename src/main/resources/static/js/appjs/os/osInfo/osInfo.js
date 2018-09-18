@@ -137,20 +137,27 @@ function load(deptId) {
 									align : 'center',
 									width:150,
 									formatter : function(value, row, index) {
+										
+										
 										var e = '<a class="btn btn-primary btn-sm '
 												+ s_edit_h
 												+ '" href="#" mce_href="#" title="远程协助" onclick="remote(\''
 												+ row.id+ '\',\'' + row.osIp
 												+ '\')"><i class="fa fa-street-view"></i></a> ';
-										var f = '<a class="btn btn-warning btn-sm '
+										var f = '<a class="btn btn-primary btn-sm '
+											+ s_edit_h
+											+ '" href="#" mce_href="#" title="导出离线策略" onclick="singleExport(\''
+											+ row.id+ '\',\'' + row.osIp
+											+ '\')"><i class="fa fa-external-link"></i></a> ';
+										/*var f = '<a class="btn btn-warning btn-sm '
 												+ s_remove_h
 												+ '" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
 										var d = '<a class="btn btn-success btn-sm" href="#" title="查看策略"  mce_href="#" onclick="showStrategy(\''
 												+ row.templetName
-												+ '\')"><i class="fa fa-group"></i></a> ';
-										return e ;
+												+ '\')"><i class="fa fa-group"></i></a> ';*/
+										return e+f ;
 									}
 								} ]
 					});
@@ -265,3 +272,83 @@ function setCode() {
 	});
 	
 }
+
+
+async function test(osId,osIp) {
+    let result = await singleExport(osId,osIp);
+}
+
+
+
+function offlineExport() {
+	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
+	if (rows.length == 0) {
+		layer.msg("请选择要导出的数据");
+		return;
+	}
+	
+	var ids = new Array();
+	// 遍历所有选择的行数据，取每条数据对应的ID
+	$.each(rows, function(i, row) {
+		if(row['id']){
+			
+			//setTimeout("singleExport('"+row['id']+"','"+row['osIp']+"')",3000)
+			//await window.location.href='/os/osManager/offlineExport?osId=' + row['id']+'&osIp='+row['osIp'];
+			//test(row['id'],row['osIp']);
+			var osIp = row['osIp'];
+			osIp = osIp.replace(/[.]/g,"_");
+			var url ='/os/osManager/offlineExport?osId=' + row['id']+'&osIp='+row['osIp'];
+			sleep(500);
+		    download(url);
+		}
+		//ids[i] = row['id'];
+	});
+	
+	
+	//var idsStr = ids.join(",");
+	//window.location.href='/os/osManager/offlineExprot?osIds=' + idsStr;
+	
+	
+	/*$.ajax({
+		type : 'GET',
+		url : '/os/osManager/offlineExprot?osIds=' + idsStr+'&osIps='+ipsStr,
+		success : function(r) {
+			if (r.code == 0) {
+				layer.msg(r.msg);
+				reLoad();
+			} else {
+				layer.msg(r.msg);
+			}
+		}
+	});*/
+	
+}
+
+function singleExport(osId,osIp){
+	osIp = osIp.replace(/[.]/g,"_");
+	var url = '/os/osManager/offlineExport?osId=' + osId+'&osIp='+osIp;
+	var exportXlsButton = document.getElementById("exportXlsButton");  
+    exportXlsButton.href = url; //url地址  
+    exportXlsButton.click(); 
+}
+
+
+
+function sleep(d){
+    for(var t = Date.now();Date.now() - t <= d;);
+}
+ 
+ 
+function download(src) {
+    var $a = document.createElement('a');
+    $a.setAttribute("href", src);
+    $a.setAttribute("download", "");
+ 
+    var evObj = document.createEvent('MouseEvents');
+    evObj.initMouseEvent( 'click', true, true, window, 0, 0, 0, 0, 0, false, false, true, false, 0, null);
+    $a.dispatchEvent(evObj);
+};
+
+
+
+

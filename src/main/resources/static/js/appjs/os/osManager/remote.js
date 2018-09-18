@@ -75,7 +75,7 @@ function execCmd() {
 				//parent.reLoad();
 				//var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
 				//parent.layer.close(index);
-				interval = setInterval(getCmdResult, 3000);
+				interval = setInterval(getCmdResult, 5000);
 
 			} else {
 				parent.layer.alert(data.msg)

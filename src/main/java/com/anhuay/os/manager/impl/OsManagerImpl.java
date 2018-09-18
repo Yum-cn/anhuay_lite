@@ -156,4 +156,12 @@ public class OsManagerImpl extends BaseManagerImpl implements OsManagerInterface
 		}
 	}
 
+
+
+	@Override
+	public BaseResult<Object> offlineExport(Object object) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

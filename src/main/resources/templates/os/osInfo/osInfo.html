@@ -28,9 +28,14 @@
 				<div class="ibox-body">
 					<div class="fixed-table-toolbar">
 						<div class="columns pull-left">
-							<button shiro:hasPermission="os:osInfo:add" type="button"
-								class="btn  btn-primary" onclick="setCode()">
-								<i class="fa fa-plus" aria-hidden="true"></i>设置授权码
+							<button type="button" class="btn  btn-primary"
+								onclick="setCode()">
+								<i class="fa fa-plus" aria-hidden="true"></i>设置卸载码
+							</button>
+
+							<button type="button" class="btn  btn-primary"
+								onclick="offlineExport()">
+								<i class="fa fa-external-link" aria-hidden="true"></i>导出离线策略
 							</button>
 							<!-- <button type="button"
 								class="btn  btn-danger" onclick="batchRemove()">
@@ -53,24 +58,30 @@
 			</div>
 		</div>
 	</div>
-	                   <style>
-						.table-striped {
-						    word-wrap: break-word;
-						    table-layout: fixed;
-						    white-space: pre-wrap;
-						}
-						
-						.fixed-table-container tbody td .th-inner, .fixed-table-container thead th .th-inner
-						    {
-						    line-height: 20px;
-						    vertical-align: top;
-						    text-overflow: ellipsis;
-						    white-space: pre-wrap;
-						    padding: 8px;
-						    overflow: hidden;
-						    word-wrap: break-word;
-						}
-						</style>
+	
+	
+	<a href="#" id="exportXlsButton" target="exportTarget" style="display:none"></a>  
+<iframe name="exportTarget" id="exportTarget" style="display:none;"></iframe>  
+	
+	
+	<style>
+.table-striped {
+	word-wrap: break-word;
+	table-layout: fixed;
+	white-space: pre-wrap;
+}
+
+.fixed-table-container tbody td .th-inner, .fixed-table-container thead th .th-inner
+	{
+	line-height: 20px;
+	vertical-align: top;
+	text-overflow: ellipsis;
+	white-space: pre-wrap;
+	padding: 8px;
+	overflow: hidden;
+	word-wrap: break-word;
+}
+</style>
 	<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
 	<div>
 		<script type="text/javascript">
