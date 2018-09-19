@@ -70,7 +70,8 @@
 	
 	
 	<select id="listOs" resultType="com.anhuay.os.domain.OsInfoVO">
-        select om.uninstall_status,om.uninstall_passwd,t.`id`,t.`os_ip`,`os_name`,`install_code`,`terminal_tag`,`person_liable_id`,`person_liable_name`,`dept_id`,`dept_name`,`level`,`os_type`,`install_status`,`online_status`,`sync_status`,`last_active_time`,`status`,t.`create_time`,t.`update_time` from ahy_os_info t  
+        select om.uninstall_status,om.uninstall_passwd,om.task_status,om.process_monitor_status,om.account_monitor_status,om.sd_soft_monitor_status,om.netlink_monitor_status,om.close_status,
+        t.`id`,t.`os_ip`,`os_name`,`install_code`,`terminal_tag`,`person_liable_id`,`person_liable_name`,`dept_id`,`dept_name`,`level`,`os_type`,`install_status`,`online_status`,`sync_status`,`last_active_time`,`status`,t.`create_time`,t.`update_time` from ahy_os_info t  
            LEFT JOIN ahys_os_manager om on om.os_id=t.id
         <where>  
                   <if test="id != null and id != ''"> and t.id = #{id} </if>

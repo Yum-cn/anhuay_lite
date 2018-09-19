@@ -123,7 +123,8 @@ public class OsManagerController {
 	}
 
 	/**
-	 * 删除
+	 * 
+	 * @author   Yum
 	 */
 	@PostMapping("/setUninstallPassword")
 	@ResponseBody
@@ -143,7 +144,7 @@ public class OsManagerController {
 
 					if (osManager != null) {
 
-						osManager.setUninstallStatus(StringUtils.isBlank(osManager.getUninstallPasswd()) ? "0" : "1");
+						osManager.setUninstallStatus(StringUtils.isBlank(code) ? "0" : "1");
 						osManager.setUninstallPasswd(code);
 						osManager.setUpdateTime(System.currentTimeMillis());
 						osManager.setTaskStatus("1");

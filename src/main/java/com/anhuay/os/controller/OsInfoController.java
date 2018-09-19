@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -98,7 +99,54 @@ public class OsInfoController {
 		// 查询列表数据
 		Query query = new Query(params);
 		List<OsInfoVO> osInfoList = osInfoService.listOs(query);
+		List<OsInfoVO> resultList = new ArrayList<OsInfoVO>();
 		
+		if (CollectionUtils.isNotEmpty(osInfoList)) {
+			for (int j = 0; j < osInfoList.size(); j++) {
+				OsInfoVO osInfoVO = osInfoList.get(j);
+
+//				private String uninstallStatus;
+//				//卸载码
+//				private String uninstallPasswd;
+//				//策略下发状态（1-待下发，2-下发中，3-已生效，4-配置失败）
+//				private String taskStatus;
+//				//应用安全
+//				private String processMonitorStatus;
+//				//账户安全
+//				private String accountMonitorStatus;
+//				//杀毒软件检测状态
+//				private String sdSoftMonitorStatus;
+//				//网络连接监控状态
+//				private String netlinkMonitorStatus;
+				
+				
+				StringBuffer sb = new StringBuffer();
+				if(StringUtils.isNotBlank(osInfoVO.getUninstallStatus())&&StringUtils.equals("1", osInfoVO.getUninstallStatus())){
+					sb.append("终端保护策略;");
+				}
+				if(StringUtils.isNotBlank(osInfoVO.getProcessMonitorStatus())&&StringUtils.equals("1", osInfoVO.getProcessMonitorStatus())){
+					sb.append("应用安全策略;");
+				}
+				if(StringUtils.isNotBlank(osInfoVO.getAccountMonitorStatus())&&StringUtils.equals("1", osInfoVO.getAccountMonitorStatus())){
+					sb.append("账户安全策略;");
+				}
+				if(StringUtils.isNotBlank(osInfoVO.getSdSoftMonitorStatus())&&StringUtils.equals("1", osInfoVO.getSdSoftMonitorStatus())){
+					sb.append("桌面安全加固策略;");
+				}
+				if(StringUtils.isNotBlank(osInfoVO.getNetlinkMonitorStatus())&&StringUtils.equals("1", osInfoVO.getNetlinkMonitorStatus())){
+					sb.append("非法外联策略;");
+				}
+				//osInfoVO.setTempletType(4);
+				osInfoVO.setTempletName(sb.toString());
+
+				osInfoVO.setServerTime(System.currentTimeMillis() / 1000);
+				resultList.add(osInfoVO);
+			}
+
+		}
+		
+		
+
 		
 		int total = osInfoService.countOs(query);
 		PageUtils pageUtils = new PageUtils(osInfoList, total);

@@ -115,6 +115,23 @@ function load(deptId) {
 										}*/
 									}
 								},
+								{
+									field : 'taskStatus',
+									title : '策略下发状态',
+									formatter : function(value, row, index){
+										if(value==1){
+											return '<span class=" ">待下发</span>';
+										}else if(value==2){
+											return '<span class=" ">下发中</span>';
+										}else if(value==3){
+											return '<span class=" ">已生效</span>';
+										}else if(value==4){
+											return '<span class=" ">配置失败</span>';
+										}else{
+											return '<span class=" ">待下发</span>';
+										}
+									}
+								},
 								
 								{
 									field : 'lastActiveTime',
@@ -139,7 +156,7 @@ function load(deptId) {
 									formatter : function(value, row, index) {
 										
 										
-										var e = '<a class="btn btn-primary btn-sm '
+										var e = '<a class="btn btn-warning btn-sm '
 												+ s_edit_h
 												+ '" href="#" mce_href="#" title="远程协助" onclick="remote(\''
 												+ row.id+ '\',\'' + row.osIp
@@ -149,15 +166,16 @@ function load(deptId) {
 											+ '" href="#" mce_href="#" title="导出离线策略" onclick="singleExport(\''
 											+ row.id+ '\',\'' + row.osIp
 											+ '\')"><i class="fa fa-external-link"></i></a> ';
+										var g = '<a class="btn btn-success btn-sm" href="#" title="查看策略"  mce_href="#" onclick="showStrategy(\''
+											+ row.templetName
+											+ '\')"><i class="fa fa-group"></i></a> ';
 										/*var f = '<a class="btn btn-warning btn-sm '
 												+ s_remove_h
 												+ '" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
-										var d = '<a class="btn btn-success btn-sm" href="#" title="查看策略"  mce_href="#" onclick="showStrategy(\''
-												+ row.templetName
-												+ '\')"><i class="fa fa-group"></i></a> ';*/
-										return e+f ;
+										*/
+										return e+f+g ;
 									}
 								} ]
 					});
@@ -209,6 +227,11 @@ function remove(id) {
 }
 
 function showStrategy(content) {
+	
+	if(!content || content=='null'){
+		content = "暂无可生效策略！";
+	}
+	
 	layer.alert(content);
 }
 function batchRemove() {
@@ -274,11 +297,6 @@ function setCode() {
 }
 
 
-async function test(osId,osIp) {
-    let result = await singleExport(osId,osIp);
-}
-
-
 
 function offlineExport() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
@@ -297,8 +315,8 @@ function offlineExport() {
 			//test(row['id'],row['osIp']);
 			var osIp = row['osIp'];
 			osIp = osIp.replace(/[.]/g,"_");
-			var url ='/os/osManager/offlineExport?osId=' + row['id']+'&osIp='+row['osIp'];
-			sleep(500);
+			var url ='/os/osManager/offlineExport?osId=' + row['id']+'&osIp='+osIp;
+			sleep(1000);
 		    download(url);
 		}
 		//ids[i] = row['id'];
@@ -326,10 +344,12 @@ function offlineExport() {
 
 function singleExport(osId,osIp){
 	osIp = osIp.replace(/[.]/g,"_");
-	var url = '/os/osManager/offlineExport?osId=' + osId+'&osIp='+osIp;
-	var exportXlsButton = document.getElementById("exportXlsButton");  
-    exportXlsButton.href = url; //url地址  
-    exportXlsButton.click(); 
+	window.location.href='/os/osManager/offlineExport?osId=' + osId+'&osIp='+osIp;
+	//var url = '/os/osManager/offlineExport?osId=' + osId+'&osIp='+osIp;
+	//window.location.href=url;
+//	var exportXlsButton = document.getElementById("exportXlsButton");  
+//    exportXlsButton.href = url; //url地址  
+//    exportXlsButton.click(); 
 }
 
 

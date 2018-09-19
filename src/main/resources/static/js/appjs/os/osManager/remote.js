@@ -70,8 +70,9 @@ function execCmd() {
 		},
 		success : function(data) {
 			if (data.code == 1) {
+				$("#submit").attr("disabled", true);
 				parent.layer.msg("执行中...");
-				$("#result").text(data.data.cmdResult);
+				$("#result").text("");
 				//parent.reLoad();
 				//var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
 				//parent.layer.close(index);

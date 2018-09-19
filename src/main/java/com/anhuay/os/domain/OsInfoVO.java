@@ -62,6 +62,17 @@ public class OsInfoVO implements Serializable {
 	private String uninstallStatus;
 	//卸载码
 	private String uninstallPasswd;
+	//策略下发状态（1-待下发，2-下发中，3-已生效，4-配置失败）
+	private String taskStatus;
+	//应用安全
+	private String processMonitorStatus;
+	//账户安全
+	private String accountMonitorStatus;
+	//杀毒软件检测状态
+	private String sdSoftMonitorStatus;
+	//网络连接监控状态
+	private String netlinkMonitorStatus;
+	
 
 	/**
 	 * 设置：主键编号
@@ -308,6 +319,36 @@ public class OsInfoVO implements Serializable {
 	}
 	public void setUninstallPasswd(String uninstallPasswd) {
 		this.uninstallPasswd = uninstallPasswd;
+	}
+	public String getTaskStatus() {
+		return taskStatus;
+	}
+	public void setTaskStatus(String taskStatus) {
+		this.taskStatus = taskStatus;
+	}
+	public String getProcessMonitorStatus() {
+		return processMonitorStatus;
+	}
+	public void setProcessMonitorStatus(String processMonitorStatus) {
+		this.processMonitorStatus = processMonitorStatus;
+	}
+	public String getAccountMonitorStatus() {
+		return accountMonitorStatus;
+	}
+	public void setAccountMonitorStatus(String accountMonitorStatus) {
+		this.accountMonitorStatus = accountMonitorStatus;
+	}
+	public String getSdSoftMonitorStatus() {
+		return sdSoftMonitorStatus;
+	}
+	public void setSdSoftMonitorStatus(String sdSoftMonitorStatus) {
+		this.sdSoftMonitorStatus = sdSoftMonitorStatus;
+	}
+	public String getNetlinkMonitorStatus() {
+		return netlinkMonitorStatus;
+	}
+	public void setNetlinkMonitorStatus(String netlinkMonitorStatus) {
+		this.netlinkMonitorStatus = netlinkMonitorStatus;
 	}
 
 	
