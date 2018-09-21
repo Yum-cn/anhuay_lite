@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.anhuay.os.dao.NetInfoDao">
+
+	<select id="get" resultType="com.anhuay.os.domain.NetInfoDO">
+		select `id`,`os_id`,`os_ip`,`dev_name`,`dev_decript`,`dev_ip`,`dev_ipv6`,`dev_mask`,`dev_mac`,`dev_status`,`dev_type`,`attr1`,`attr2` from ahys_net_info where id = #{value}
+	</select>
+	
+	<select id="getNetInfo" resultType="com.anhuay.os.domain.NetInfoDO">
+        select `id`,`os_id`,`os_ip`,`dev_name`,`dev_decript`,`dev_ip`,`dev_ipv6`,`dev_mask`,`dev_mac`,`dev_status`,`dev_type`,`attr1`,`attr2` from ahys_net_info 
+        <where>  
+                    <if test="id != null and id != ''"> and id = #{id} </if>
+                    <if test="osId != null and osId != ''"> and os_id = #{osId} </if>
+                    <if test="osIp != null and osIp != ''"> and os_ip = #{osIp} </if>
+                    <if test="devName != null and devName != ''"> and dev_name = #{devName} </if>
+                    <if test="devDecript != null and devDecript != ''"> and dev_decript = #{devDecript} </if>
+                    <if test="devIp != null and devIp != ''"> and dev_ip = #{devIp} </if>
+                    <if test="devIpv6 != null and devIpv6 != ''"> and dev_ipv6 = #{devIpv6} </if>
+                    <if test="devMask != null and devMask != ''"> and dev_mask = #{devMask} </if>
+                    <if test="devMac != null and devMac != ''"> and dev_mac = #{devMac} </if>
+                    <if test="devStatus != null and devStatus != ''"> and dev_status = #{devStatus} </if>
+                    <if test="devType != null and devType != ''"> and dev_type = #{devType} </if>
+                    <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1} </if>
+                    <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2} </if>
+        </where>
+        limit 1
+    </select>
+
+	<select id="list" resultType="com.anhuay.os.domain.NetInfoDO">
+		select `id`,`os_id`,`os_ip`,`dev_name`,`dev_decript`,`dev_ip`,`dev_ipv6`,`dev_mask`,`dev_mac`,`dev_status`,`dev_type`,`attr1`,`attr2` from ahys_net_info
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="osId != null and osId != ''"> and os_id = #{osId} </if>
+		  		  <if test="osIp != null and osIp != ''"> and os_ip = #{osIp} </if>
+		  		  <if test="devName != null and devName != ''"> and dev_name = #{devName} </if>
+		  		  <if test="devDecript != null and devDecript != ''"> and dev_decript = #{devDecript} </if>
+		  		  <if test="devIp != null and devIp != ''"> and dev_ip = #{devIp} </if>
+		  		  <if test="devIpv6 != null and devIpv6 != ''"> and dev_ipv6 = #{devIpv6} </if>
+		  		  <if test="devMask != null and devMask != ''"> and dev_mask = #{devMask} </if>
+		  		  <if test="devMac != null and devMac != ''"> and dev_mac = #{devMac} </if>
+		  		  <if test="devStatus != null and devStatus != ''"> and dev_status = #{devStatus} </if>
+		  		  <if test="devType != null and devType != ''"> and dev_type = #{devType} </if>
+		  		  <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1} </if>
+		  		  <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2} </if>
+		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from ahys_net_info
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="osId != null and osId != ''"> and os_id = #{osId} </if>
+		  		  <if test="osIp != null and osIp != ''"> and os_ip = #{osIp} </if>
+		  		  <if test="devName != null and devName != ''"> and dev_name = #{devName} </if>
+		  		  <if test="devDecript != null and devDecript != ''"> and dev_decript = #{devDecript} </if>
+		  		  <if test="devIp != null and devIp != ''"> and dev_ip = #{devIp} </if>
+		  		  <if test="devIpv6 != null and devIpv6 != ''"> and dev_ipv6 = #{devIpv6} </if>
+		  		  <if test="devMask != null and devMask != ''"> and dev_mask = #{devMask} </if>
+		  		  <if test="devMac != null and devMac != ''"> and dev_mac = #{devMac} </if>
+		  		  <if test="devStatus != null and devStatus != ''"> and dev_status = #{devStatus} </if>
+		  		  <if test="devType != null and devType != ''"> and dev_type = #{devType} </if>
+		  		  <if test="attr1 != null and attr1 != ''"> and attr1 = #{attr1} </if>
+		  		  <if test="attr2 != null and attr2 != ''"> and attr2 = #{attr2} </if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.anhuay.os.domain.NetInfoDO" useGeneratedKeys="true" keyProperty="id">
+		insert into ahys_net_info
+		(
+			`os_id`, 
+			`os_ip`, 
+			`dev_name`, 
+			`dev_decript`, 
+			`dev_ip`, 
+			`dev_ipv6`, 
+			`dev_mask`, 
+			`dev_mac`, 
+			`dev_status`, 
+			`dev_type`, 
+			`attr1`, 
+			`attr2`
+		)
+		values
+		(
+			#{osId}, 
+			#{osIp}, 
+			#{devName}, 
+			#{devDecript}, 
+			#{devIp}, 
+			#{devIpv6}, 
+			#{devMask}, 
+			#{devMac}, 
+			#{devStatus}, 
+			#{devType}, 
+			#{attr1}, 
+			#{attr2}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.anhuay.os.domain.NetInfoDO">
+		update ahys_net_info 
+		<set>
+			<if test="osId != null">`os_id` = #{osId}, </if>
+			<if test="osIp != null">`os_ip` = #{osIp}, </if>
+			<if test="devName != null">`dev_name` = #{devName}, </if>
+			<if test="devDecript != null">`dev_decript` = #{devDecript}, </if>
+			<if test="devIp != null">`dev_ip` = #{devIp}, </if>
+			<if test="devIpv6 != null">`dev_ipv6` = #{devIpv6}, </if>
+			<if test="devMask != null">`dev_mask` = #{devMask}, </if>
+			<if test="devMac != null">`dev_mac` = #{devMac}, </if>
+			<if test="devStatus != null">`dev_status` = #{devStatus}, </if>
+			<if test="devType != null">`dev_type` = #{devType}, </if>
+			<if test="attr1 != null">`attr1` = #{attr1}, </if>
+			<if test="attr2 != null">`attr2` = #{attr2}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="updateStatus">
+        update ahys_net_info set status = 0 where id = #{value}
+    </update>
+
+    <update id="batchUpdateStatus">
+        update ahys_net_info set status = 0 where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+	
+	<delete id="remove">
+		delete from ahys_net_info where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from ahys_net_info where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="ibox float-e-margins">
+					<form class="form-horizontal m-t" id="signupForm">
+					       <!-- <div class="form-group">
+                                <label class="col-sm-3 control-label">模板描述：</label>
+                                <div class="col-sm-8">
+                                    <input id="templetDesc" name="templetDesc" class="form-control"
+                                        th:value="qqqqq" type="text">
+                                </div>
+                            </div> -->
+						<div class="ibox-content" style="text-align: center;">
+							<div class="form-group">
+								<div class="" th:text="'主机信息：'+${osName}+'('+${osIp}+')'"
+									style="font-weight: bold;"></div>
+							</div>
+
+							<!-- <input id="osId" name="osId" th:value="${osId}" type="hidden">
+							<input id="osIp" name="osIp" th:value="${osIp}" type="hidden">
+
+							<div class="form-group">
+								<label class="col-sm-3 control-label">安装码：</label>
+								<div class="col-sm-4">
+									<input id="code" name="code" class="form-control"
+										type="text"  readOnly>
+								</div>
+								<span><button
+										class="btn btn-success waves-effect waves-light"
+										onclick="geneInstallCode()" type="button">生成</button>
+										<button
+                                        class="btn btn-success waves-effect waves-light"
+                                        onclick="resetCode()" type="button">重置</button></span>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-8 col-sm-offset-3">
+									<button type="button"  onclick="save()"  class="btn btn-primary">提交</button>
+								</div>
+							</div> -->
+
+							<table border="0" cellpadding="0" cellspacing="0"
+								style="margin: auto;">
+
+								<tr>
+									<td style="width: 160px;">已启用的设备列表</td>
+									<td>&nbsp;</td>
+									<td style="width: 160px;">已禁用的设备列表</td>
+								</tr>
+
+								<tr>
+									<!-- <td width="29"><input type="button" name="s1up" id="s1up"
+									value="↑" /><br /> <input type="button" name="s1down"
+									id="s1down" value="↓" /></td> -->
+									<td width="100"><select name="enableIdsSelect" size="10"
+										multiple="multiple" id="s1" style="width: 150px;"
+										mce_style=" width:150px;">
+											<!-- <option value="opt01">option01</option>
+										<option value="opt02">option02</option>
+										<option value="opt03">option03</option>
+										<option value="opt04">option04</option>
+										<option value="opt05">option05</option>
+										<option value="opt06">option06</option>
+										<option value="opt07">option07</option>
+										<option value="opt08">option08</option>
+										<option value="opt09">option09</option>
+										<option value="opt10">option10</option> -->
+									</select></td>
+
+
+									<td align="center">
+									    <input id="enableIds" name="enableIds" class="form-control" type="hidden" value="">
+									    <input id="disableIds" name="disableIds" class="form-control" type="hidden" value="">
+									    <input id="osId" name="osId" th:value="${osId}" type="hidden">
+									    <input id="osIp" name="osIp" th:value="${osIp}" type="hidden">
+										<!-- <input type="button" name="addall" id="addall" value=">|" /><br /> -->
+										<input type="button" name="add" id="add" value="禁用>>" /><br />
+										<input type="button" name="remove" id="remove" value="<<启用" /><br />
+										<!-- <input type="button" name="removeall" id="removeall" value="|<" /> -->
+									</td>
+
+									<td width="100">
+									<select name="disableIdsSelect" size="10"
+										multiple="multiple" id="s2"
+										style="width: 150px; margin-left: 10px;"
+										mce_style=" width:150px;">
+									</select>
+									</td>
+
+									<!-- <td width="119"><input type="button" name="s2up" id="s2up"
+									value="↑" /><br /> <input type="button" name="s2down"
+									id="s2down" value="↓" /></td> -->
+
+								</tr>
+							</table>
+							<!-- <p>支持直接双击添加/删除，上下(支持间隔)排序</p> -->
+							<div class="form-group" style="text-align: center;">&nbsp;
+							</div>
+							<div class="form-group" style="text-align: center;">
+								<button onclick="save()" class="btn btn-primary">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:include="include::footer"></div>
+	<script th:inline="javascript" type="text/javascript">
+        // <![CDATA[
+                var bean = [[${list}]];
+        // ]]>
+        
+    </script>
+	<script type="text/javascript"
+		src="/js/appjs/os/osManager/irregularConnection.js">
+		
+	</script>
+</body>
+</html>
