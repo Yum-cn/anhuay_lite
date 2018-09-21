@@ -34,10 +34,12 @@ import com.anhuay.common.utils.DateUtils;
 import com.anhuay.common.utils.PageUtils;
 import com.anhuay.common.utils.Query;
 import com.anhuay.common.utils.R;
+import com.anhuay.os.domain.NetInfoDO;
 import com.anhuay.os.domain.OsCmdDO;
 import com.anhuay.os.domain.OsManagerDO;
 import com.anhuay.os.domain.OsManagerVO;
 import com.anhuay.os.manager.OsManagerInterface;
+import com.anhuay.os.service.NetInfoService;
 import com.anhuay.os.service.OsCmdService;
 import com.anhuay.os.service.OsManagerService;
 import com.common.util.EncryptUtil;
@@ -65,6 +67,8 @@ public class OsManagerController {
 	private OsCmdService osCmdService;
 	@Autowired
 	private BootdoConfig bootdoConfig;
+	@Autowired
+	private NetInfoService netInfoService;
 
 	@GetMapping()
 	@RequiresPermissions("os:osManager:osManager")
@@ -122,13 +126,27 @@ public class OsManagerController {
 		return "os/osManager/uninstallCode";
 	}
 
+	@GetMapping("/irregularConnection")
+	String irregularConnection(String osId, String osIp, String osName, Model model) {
+
+		model.addAttribute("osId", osId);
+		model.addAttribute("osIp", osIp);
+		model.addAttribute("osName", osName);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("osId", osId);
+		List<NetInfoDO> list = netInfoService.list(map);
+		model.addAttribute("list", list);
+
+		return "os/osManager/irregularConnection";
+	}
+
 	/**
 	 * 
-	 * @author   Yum
+	 * @author Yum
 	 */
 	@PostMapping("/setUninstallPassword")
 	@ResponseBody
-	public R remove(String osIds, String osIps, String code) {
+	public R setUninstallPassword(String osIds, String osIps, String code) {
 
 		if (StringUtils.isNotBlank(osIds)) {
 
@@ -168,6 +186,131 @@ public class OsManagerController {
 			}
 		}
 		// osManagerService.batchUpdateStatus(ids);
+		return R.ok();
+	}
+
+	/**
+	 * 
+	 * @author Yum
+	 */
+	/*
+	 * @PostMapping("/netInfoManager")
+	 * 
+	 * @ResponseBody public R netInfoManager(String osId,String aaenableIds,
+	 * String bbdisableIds, Model model) {
+	 * 
+	 * System.out.println(osId+">>>"+aaenableIds+">>>"+bbdisableIds);
+	 * 
+	 * if (StringUtils.isNotBlank(osIds)) {
+	 * 
+	 * String[] idsArray = StringUtils.split(osIds, ","); String[] ipsArray =
+	 * StringUtils.split(osIps, ",");
+	 * 
+	 * for (int i = 0; i < idsArray.length; i++) {
+	 * 
+	 * try { Map<String, Object> map = new HashMap<String, Object>();
+	 * map.put("osId", idsArray[i]); OsManagerDO osManager =
+	 * osManagerService.getOsManager(map);
+	 * 
+	 * if (osManager != null) {
+	 * 
+	 * osManager.setUninstallStatus(StringUtils.isBlank(code) ? "0" : "1");
+	 * osManager.setUninstallPasswd(code);
+	 * osManager.setUpdateTime(System.currentTimeMillis());
+	 * osManager.setTaskStatus("1"); osManagerService.update(osManager); } else
+	 * {
+	 * 
+	 * osManager = new OsManagerDO();
+	 * osManager.setOsId(String.valueOf(idsArray[i]));
+	 * osManager.setOsIp(ipsArray[i]); osManager.setUninstallStatus("1");
+	 * osManager.setUninstallPasswd(code);
+	 * osManager.setCreateTime(System.currentTimeMillis());
+	 * osManager.setTaskStatus("1"); osManagerService.save(osManager); } } catch
+	 * (Exception e) { // TODO Auto-generated catch block e.printStackTrace(); }
+	 * 
+	 * } } // osManagerService.batchUpdateStatus(ids); return R.ok(); }
+	 */
+
+	/**
+	 * 保存
+	 */
+	@ResponseBody
+	@PostMapping("/netInfoManager")
+	public R netInfoManager(String osId,String osIp, String enableIds, String disableIds, Model model) {
+		// 8>>>1>>>2;4,2
+		System.out.println(osId + ">>>" + enableIds + ">>>" + disableIds);
+		// ahys_os_manager的netlink_monitor_rules字段就写成一个json 包含俩字段
+		// enable:1,2,3;disable:4,5
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("osId", osId);
+
+		OsManagerDO osManager = osManagerService.getOsManager(map);
+		if (osManager != null) {
+			osManager.setNetlinkMonitorStatus("1");
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("enable", enableIds);
+			jsonObject.put("disable", disableIds);
+			osManager.setNetlinkMonitorRules(jsonObject.toString());
+			osManager.setUpdateTime(System.currentTimeMillis());
+			osManager.setTaskStatus("1");
+			osManagerService.update(osManager);
+		}else{
+			osManager = new OsManagerDO();
+			osManager.setOsId(osId);
+			osManager.setOsIp(osIp);
+			osManager.setNetlinkMonitorStatus("1");
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("enable", enableIds);
+			jsonObject.put("disable", disableIds);
+			osManager.setNetlinkMonitorRules(jsonObject.toString());
+			osManager.setCreateTime(System.currentTimeMillis());
+			osManager.setTaskStatus("1");
+			osManagerService.save(osManager);
+		}
+
+		if (StringUtils.isNotBlank(enableIds)) {
+
+			String[] enableArray = enableIds.split(",");
+			if (enableArray != null && enableArray.length > 0) {
+				
+				for (int i = 0; i < enableArray.length; i++) {
+					
+					try {
+						NetInfoDO netInfo = netInfoService.get(Integer.parseInt(enableArray[i]));
+						if(netInfo != null){
+							netInfo.setDevStatus("1");
+							netInfoService.update(netInfo);
+						}
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+		}
+
+		if (StringUtils.isNotBlank(disableIds)) {
+
+			String[] disableArray = disableIds.split(",");
+			if (disableArray != null && disableArray.length > 0) {
+				
+				for (int i = 0; i < disableArray.length; i++) {
+					
+					try {
+						NetInfoDO netInfo = netInfoService.get(Integer.parseInt(disableArray[i]));
+						if(netInfo != null){
+							netInfo.setDevStatus("0");
+							netInfoService.update(netInfo);
+						}
+					} catch (NumberFormatException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+
+		netInfoService.list(map);
+
 		return R.ok();
 	}
 
@@ -228,34 +371,37 @@ public class OsManagerController {
 			return;
 		}
 		OsManagerDO osManager = null;
-			try {
-				Map<String, Object> map = new HashMap<String, Object>();
-				map.put("osId", osId);
-				osManager = osManagerService.getOsManager(map);
+		try {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("osId", osId);
+			osManager = osManagerService.getOsManager(map);
 
-				if (osManager == null) {
-					return;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			if (osManager == null) {
+				return;
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		String dateStr = DateFormat.getDateInstance(DateFormat.MEDIUM).format(new Date());
 		String tempFilePath = dateStr + "/offline/" + UUID.randomUUID() + "/safe_cli.cfg";
 		String uploadFileName = bootdoConfig.getUploadPath() + tempFilePath;
 		JSONObject jsonObject = JSONObject.fromObject(osManager);
 		// jsonObject.put("test", "hello,Yum!");
-		
+
 		try {
-			FileUtils.writeStringToFile(new File(uploadFileName), EncryptUtil.encryptDES(GenericPropertyConverterUtils.camelToUnderlineForJsonObject(jsonObject).toString(), SALT),
+			FileUtils.writeStringToFile(new File(uploadFileName),
+					EncryptUtil.encryptDES(
+							GenericPropertyConverterUtils.camelToUnderlineForJsonObject(jsonObject).toString(), SALT),
 					"UTF-8", false);
-			//System.out.println(EncryptUtil.decryptDES("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", SALT));
+			// System.out.println(EncryptUtil.decryptDES("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",
+			// SALT));
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		String fileName = osIp+"_safe_cli.cfg";
+		String fileName = osIp + "_safe_cli.cfg";
 		res.setHeader("content-type", "application/octet-stream");
 		res.setContentType("application/octet-stream");
 		res.setHeader("Content-Disposition", "attachment;filename=" + fileName);
@@ -284,23 +430,24 @@ public class OsManagerController {
 		}
 		System.out.println("success");
 	}
+
 	@RequestMapping(value = "/offlineExportBatch", method = RequestMethod.GET)
 	public void offlineExportBatch(HttpServletResponse res, String osIds) {
-		
+
 		if (StringUtils.isBlank(osIds)) {
 			return;
 		}
-		
+
 		List<OsManagerDO> list = new ArrayList<OsManagerDO>();
-		
+
 		String[] idsArray = StringUtils.split(osIds, ",");
-		
+
 		for (int i = 0; i < idsArray.length; i++) {
 			try {
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("osId", idsArray[i]);
 				OsManagerDO osManager = osManagerService.getOsManager(map);
-				
+
 				if (osManager == null) {
 					continue;
 				}
@@ -309,22 +456,25 @@ public class OsManagerController {
 				e.printStackTrace();
 			}
 		}
-		
+
 		String dateStr = DateFormat.getDateInstance(DateFormat.MEDIUM).format(new Date());
 		String tempFilePath = dateStr + "/offline/" + UUID.randomUUID() + "/safe_cli.cfg";
 		String uploadFileName = bootdoConfig.getUploadPath() + tempFilePath;
 		JSONArray jsonObject = JSONArray.fromObject(list);
 		// jsonObject.put("test", "hello,Yum!");
-		
+
 		try {
-			FileUtils.writeStringToFile(new File(uploadFileName), EncryptUtil.encryptDES(GenericPropertyConverterUtils.camelToUnderlineForJsonArray(jsonObject).toString(), SALT),
+			FileUtils.writeStringToFile(new File(uploadFileName),
+					EncryptUtil.encryptDES(
+							GenericPropertyConverterUtils.camelToUnderlineForJsonArray(jsonObject).toString(), SALT),
 					"UTF-8", false);
-			//System.out.println(EncryptUtil.decryptDES("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", SALT));
-			
+			// System.out.println(EncryptUtil.decryptDES("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",
+			// SALT));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		String fileName = "safe_cli.cfg";
 		res.setHeader("content-type", "application/octet-stream");
 		res.setContentType("application/octet-stream");

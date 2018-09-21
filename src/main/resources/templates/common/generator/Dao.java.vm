@@ -18,6 +18,8 @@ public interface ${className}Dao {
 
 	${className}DO get(${pk.attrType} ${pk.attrname});
 	
+	${className}DO get${className}(Map<String,Object> map);
+	
 	List<${className}DO> list(Map<String,Object> map);
 	
 	int count(Map<String,Object> map);

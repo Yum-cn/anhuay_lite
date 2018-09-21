@@ -6,6 +6,17 @@
 	<select id="get" resultType="${package}.domain.${className}DO">
 		select #foreach($column in $columns)`$column.columnName`#if($velocityCount != $columns.size()),#end#end from ${tableName} where ${pk.columnName} = #{value}
 	</select>
+	
+	<select id="get${className}" resultType="${package}.domain.${className}DO">
+        select #foreach($column in $columns)`$column.columnName`#if($velocityCount != $columns.size()),#end#end from ${tableName} 
+        <where>  
+          #foreach($column in $columns)
+          <if test="$column.attrname != null and $column.attrname.trim() != ''"> and $column.columnName = #{$column.attrname} </if>
+          #end
+          and status = 1
+        </where>
+        limit 1
+    </select>
 
 	<select id="list" resultType="${package}.domain.${className}DO">
 		select #foreach($column in $columns)`$column.columnName`#if($velocityCount != $columns.size()),#end#end from ${tableName}

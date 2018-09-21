@@ -1,7 +1,5 @@
 var prefix = "/os/osInfo"
 $(function() {
-	
-	debugger;
 	load();
 });
 
@@ -117,7 +115,7 @@ function load(deptId) {
 								},
 								{
 									field : 'taskStatus',
-									title : '策略下发状态',
+									title : '策略状态',
 									formatter : function(value, row, index){
 										if(value==1){
 											return '<span class=" ">待下发</span>';
@@ -152,7 +150,7 @@ function load(deptId) {
 									title : '操作',
 									field : 'id',
 									align : 'center',
-									width:150,
+									width:250,
 									formatter : function(value, row, index) {
 										
 										
@@ -169,13 +167,19 @@ function load(deptId) {
 										var g = '<a class="btn btn-success btn-sm" href="#" title="查看策略"  mce_href="#" onclick="showStrategy(\''
 											+ row.templetName
 											+ '\')"><i class="fa fa-group"></i></a> ';
+										
+										var h = '<a class="btn btn-danger '
+											+ s_remove_h
+											+ '" href="#" title="非法外联管理"  mce_href="#" onclick="irregularConnection(\''
+											+ row.id+ '\',\'' + row.osIp+ '\',\'' + row.osName
+											+ '\')"><i class="fa fa-sliders"></i></a> ';
 										/*var f = '<a class="btn btn-warning btn-sm '
 												+ s_remove_h
 												+ '" href="#" title="删除"  mce_href="#" onclick="remove(\''
 												+ row.id
 												+ '\')"><i class="fa fa-remove"></i></a> ';
 										*/
-										return e+f+g ;
+										return e+f+h+g ;
 									}
 								} ]
 					});
@@ -296,6 +300,19 @@ function setCode() {
 	
 }
 
+function irregularConnection(osId,osIp,osName) {
+
+	layer.open({
+		type : 2,
+		title : '非法外联',
+		maxmin : true,
+		shadeClose : false, // 点击遮罩关闭层
+		area : [ '800px', '520px' ],
+		content : '/os/osManager/irregularConnection?osId=' + osId+'&osIp='+osIp+'&osName='+osName // iframe的url
+	});
+	
+}
+
 
 
 function offlineExport() {
@@ -310,35 +327,13 @@ function offlineExport() {
 	$.each(rows, function(i, row) {
 		if(row['id']){
 			
-			//setTimeout("singleExport('"+row['id']+"','"+row['osIp']+"')",3000)
-			//await window.location.href='/os/osManager/offlineExport?osId=' + row['id']+'&osIp='+row['osIp'];
-			//test(row['id'],row['osIp']);
 			var osIp = row['osIp'];
 			osIp = osIp.replace(/[.]/g,"_");
 			var url ='/os/osManager/offlineExport?osId=' + row['id']+'&osIp='+osIp;
 			sleep(1000);
 		    download(url);
 		}
-		//ids[i] = row['id'];
 	});
-	
-	
-	//var idsStr = ids.join(",");
-	//window.location.href='/os/osManager/offlineExprot?osIds=' + idsStr;
-	
-	
-	/*$.ajax({
-		type : 'GET',
-		url : '/os/osManager/offlineExprot?osIds=' + idsStr+'&osIps='+ipsStr,
-		success : function(r) {
-			if (r.code == 0) {
-				layer.msg(r.msg);
-				reLoad();
-			} else {
-				layer.msg(r.msg);
-			}
-		}
-	});*/
 	
 }
 
@@ -347,9 +342,9 @@ function singleExport(osId,osIp){
 	window.location.href='/os/osManager/offlineExport?osId=' + osId+'&osIp='+osIp;
 	//var url = '/os/osManager/offlineExport?osId=' + osId+'&osIp='+osIp;
 	//window.location.href=url;
-//	var exportXlsButton = document.getElementById("exportXlsButton");  
-//    exportXlsButton.href = url; //url地址  
-//    exportXlsButton.click(); 
+	//var exportXlsButton = document.getElementById("exportXlsButton");  
+	//exportXlsButton.href = url; //url地址  
+	//exportXlsButton.click(); 
 }
 
 

@@ -23,6 +23,11 @@ public class ${className}ServiceImpl implements ${className}Service {
 	}
 	
 	@Override
+    public ${className}DO get${className}(Map<String, Object> map){
+        return ${classname}Dao.get${className}(map);
+    }
+	
+	@Override
 	public List<${className}DO> list(Map<String, Object> map){
 		return ${classname}Dao.list(map);
 	}
